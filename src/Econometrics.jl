@@ -18,7 +18,7 @@ include("kernelweights.jl")
 include("samin.jl")
 
 export stnorm, lsfit, ols, prettyprint, sortbyc, NeweyWest
-export npreg, kernelweight, samin
+export npreg, kernelweights, samin
 
 end
 
