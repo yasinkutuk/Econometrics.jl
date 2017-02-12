@@ -1,5 +1,4 @@
 using Plots
-include("kernelweights.jl")
 # nonparametric regression, using pre-generated weights
 # can be local constant, local linear, or local quadratic
 #
