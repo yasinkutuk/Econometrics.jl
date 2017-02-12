@@ -1,4 +1,3 @@
-include("samin.jl")
 
 junk=2. # shows use of opj. fun. as a closure
 function sse(x)
