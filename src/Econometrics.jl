@@ -1,7 +1,6 @@
 VERSION > v"0.4-" && __precompile__()
 
 module Econometrics
-using Distributions, Plots, Distances
 
 # Utilities
 include("stnorm.jl")

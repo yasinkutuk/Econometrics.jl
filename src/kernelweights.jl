@@ -1,3 +1,4 @@
+using Distances
 # kernelweights.jl: kernel weights for nonparametrics
 function kernelweights(x, xeval, bandwidth, prewhiten=true, kernel="gaussian", neighbors=1)
     if prewhiten

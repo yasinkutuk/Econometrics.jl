@@ -1,3 +1,4 @@
+using Distributions
 # OLS fit and report results
 function ols(y, x; names="", vc="white", silent=false)
     n,k = size(x)

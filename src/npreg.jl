@@ -29,12 +29,12 @@ function npreg(y, x, xeval, weights, order)
         @inbounds for i = 1:dimx-1
             @inbounds for j = (i+1):dimx
                 cpind += 1
-                CP[:,cpind] = stacked[:,i].*stacked[:,j]
+                CP[:,cpind] = stacked[:,[i]].*stacked[:,[j]]
             end
         end
         ZZ = [ones(n+neval,1) stacked CP]
-        X = sub(ZZ,1:n,:)
-        Xeval = sub(ZZ,(n+1):n+neval,:)
+        X = view(ZZ,1:n,:)
+        Xeval = view(ZZ,(n+1):n+neval,:)
     end
     # do the fit
     #yhat = zeros(neval, dimy)
@@ -43,7 +43,7 @@ function npreg(y, x, xeval, weights, order)
         WX = weights[:,i] .* X
         Wy = weights[:,i] .* y
         b = WX\Wy
-        yhat[i,:] = Xeval[i,:]*b
+        yhat[[i],:] = Xeval[[i],:]*b
     end    
     return yhat
 end
