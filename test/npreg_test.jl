@@ -1,4 +1,3 @@
-using Plots
 # nonparametric regression, using pre-generated weights
 # can be local constant, local linear, or local quadratic
 #
