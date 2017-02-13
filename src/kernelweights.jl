@@ -25,7 +25,7 @@ function kernelweights(x, xeval, bandwidth, prewhiten=true, kernel="gaussian", n
     if kernel=="knngaussian" 
         distances = pairwise(Euclidean(),x', xeval') # get all distances
         @inbounds  for i = 1:neval
-            di = sub(distances,:,i)
+            di = view(distances,:,[i])
             ind = sortperm(di) # indices of k nearest neighbors
             selected = vec(ind[1:neighbors,:])
             z = (x[selected,:].-xeval[[i],:])/bandwidth

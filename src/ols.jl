@@ -1,5 +1,6 @@
 # OLS fit and report results
 function ols(y, x; names="", vc="white", silent=false)
+    using Distributions
     n,k = size(x)
     if names==""
         names = 1:k
