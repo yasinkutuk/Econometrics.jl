@@ -17,7 +17,7 @@ function ols(y, x; names="", vc="white", silent=false)
         varb = xx_inv*xe'*xe*xx_inv
     elseif vc=="nw"
         xe = x.*e
-        lags = Int(max(round(n^0.25),1))
+        lags = Int(max(round(n^0.25),1.0))
         varb = n*xx_inv*NeweyWest(xe,lags)*xx_inv
     else
         varb= xx_inv.*sigsq
@@ -44,5 +44,6 @@ function ols(y, x; names="", vc="white", silent=false)
         prettyprint(results, labels, names)
         println("******************************************")
     end
-    return b, varb, e, ess, rsq;
-end 
+    return b, varb, e, ess, rsq
+    ""
+end
