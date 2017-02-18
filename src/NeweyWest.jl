@@ -16,8 +16,8 @@ function NeweyWest(Z,nlags)
           Zlag = Z[1:n-i,:]
           ZZ = Z[i+1:n,:]
           gamma = (ZZ'*Zlag)/n
-          weight = 1 - (i/(nlags+1))
-          omegahat = omegahat + weight*(gamma + gamma')
+          weight = 1.0 - (i/(nlags+1.0))
+          omegahat += weight*(gamma + gamma')
        end
     end    
     return omegahat

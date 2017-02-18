@@ -44,5 +44,5 @@ function ols(y, x; names="", vc="white", silent=false)
         prettyprint(results, labels, names)
         println("******************************************")
     end
-    return b, varb, e, ess, rsq
+    return b, varb, e, ess, rsq;
 end 
