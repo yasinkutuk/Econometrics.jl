@@ -16,13 +16,14 @@ include("NeweyWest.jl")
 # nonparametrics
 include("npreg.jl")
 include("kernelweights.jl")
-include("NNlibrary.jl")
+include("TrainNet.jl")
+include("AnalyzeNet.jl")
 # optimization
 include("samin.jl")
 
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
 export lsfit, ols, NeweyWest
-export npreg, kernelweights,NNlibrary
+export npreg, kernelweights,TrainNet, AnalyzeNet
 export samin
 
 end
