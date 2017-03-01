@@ -2,11 +2,11 @@ using MXNet
 # main training function
 function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, savefile)
     # prepare data
-    data, mX, sX = stnorm(data)
-    Y = data[1:trainsize,1:noutputs]'
-    YT = data[trainsize+1:end,1:noutputs]'
-    X = data[1:trainsize,noutputs+1:end]'
-    XT = data[trainsize+1:end,noutputs+1:end]'
+    data2, mX, sX = stnorm(data)
+    Y = data2[1:trainsize,1:noutputs]'
+    YT = data2[trainsize+1:end,1:noutputs]'
+    X = data2[1:trainsize,noutputs+1:end]'
+    XT = data2[trainsize+1:end,noutputs+1:end]'
     # sizes of layers
     L1size = layerconfig[1]
     L2size = layerconfig[2]
@@ -14,7 +14,7 @@ function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, sav
     L4size = layerconfig[4]
     Outputsize = size(Y,1)
     # set up 2 layer MLP with 2 outputs
-    data = mx.Variable(:data)
+    data = mx.Variable(:data2)
     label = mx.Variable(:label)
     if L4size != 0
         net  = @mx.chain    mx.FullyConnected(data = data, num_hidden=L1size) =>
