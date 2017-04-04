@@ -1,5 +1,5 @@
 
-junk=2. # shows use of opj. fun. as a closure
+junk=2. # shows use of obj. fun. as a closure
 function sse(x)
     objvalue = junk + sum(x.*x)
 end

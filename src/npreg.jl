@@ -8,7 +8,7 @@
 #
 # weights should sum to one by columns, they are typical 
 # nonparametric weights from a kernel.
-function npreg(y, x, xeval, weights, order)
+function npreg(y::Array{Float64,2}, x::Array{Float64,2}, xeval::Array{Float64,2}, weights::Array{Float64,2}, order::Int64=1, do_median::Bool=false, do_ci::Bool=false)
     weights = sqrt(weights)
     neval, dimx = size(xeval)
     n, dimy = size(y)
@@ -37,13 +37,12 @@ function npreg(y, x, xeval, weights, order)
         Xeval = view(ZZ,(n+1):n+neval,:)
     end
     # do the fit
-    #yhat = zeros(neval, dimy)
     yhat = Array(Float64, neval, dimy)
     @inbounds for i = 1:neval
         WX = weights[:,i] .* X
         Wy = weights[:,i] .* y
         b = WX\Wy
-        yhat[[i],:] = Xeval[[i],:]*b
+        yhat[i,:] = Xeval[[i],:]*b
     end    
     return yhat
 end
