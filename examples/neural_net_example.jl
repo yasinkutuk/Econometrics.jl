@@ -34,7 +34,7 @@ function make_simdata(reps=100000)
         # pure noise
         z = randn(1,5)
         # assemble: 
-        simdata[rep,:] = [b' log(sig) bhat1' log(sighat1) bhat2' sighat2 bhat3' log(sighat3) z]
+        simdata[rep,:] = [b' log(sig) bhat1' log(sighat1) bhat2' log(sighat2) bhat3' log(sighat3) z]
     end
     return simdata
 end

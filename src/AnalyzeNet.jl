@@ -1,6 +1,6 @@
 using PyPlot
 # this script makes predictions, gets RMSEs, and plots the figure
-function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="",doplot=false)
+function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", doplot=false)
     Y = data[trainsize+1:end,1:noutputs]
     data, m, s = stnorm(data)
     X = data[trainsize+1:end,noutputs+1:end]'
@@ -38,6 +38,7 @@ function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="",dop
         ninputs = size(z,1)
         xlabels = [string(i) for i=1:ninputs]
         xticks(0:ninputs-1, xlabels)
+        show()
         println("") # stop PyPlot screen spam
     end
     return fit
