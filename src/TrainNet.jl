@@ -55,7 +55,7 @@ function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, sav
     trainprovider = mx.ArrayDataProvider(:data => X, batch_size=batchsize, shuffle=true, :label => Y)
     evalprovider = mx.ArrayDataProvider(:data => XT, batch_size=batchsize, shuffle=true, :label => YT)
     # train
-    mx.fit(model, optimizer, eval_metric=mx.MSE(), initializer=mx.UniformInitializer(0.02), trainprovider, eval_data=evalprovider, n_epoch = epochs)
+    mx.fit(model, optimizer, eval_metric=mx.MSE(), initializer=mx.UniformInitializer(0.05), trainprovider, eval_data=evalprovider, n_epoch = epochs)
     # more training with larger batch size, saving the final fitted model
     batchsize = 10*batchsize
     mx.fit(model, optimizer, eval_metric=mx.MSE(), trainprovider, eval_data=evalprovider, n_epoch = 20, callbacks=[mx.do_checkpoint(savefile, frequency=20, save_epoch_0=false)])
