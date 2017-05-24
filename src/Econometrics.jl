@@ -9,9 +9,10 @@ include("sortbyc.jl")
 include("dstats.jl")
 include("lag.jl")
 include("lags.jl")
-# OLS
+# linear regression
 include("lsfit.jl")
 include("ols.jl")
+include("tsls.jl")
 include("NeweyWest.jl")
 # nonparametrics
 include("npreg.jl")
@@ -22,7 +23,7 @@ include("AnalyzeNet.jl")
 include("samin.jl")
 
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
-export lsfit, ols, NeweyWest
+export lsfit, ols, tsls, NeweyWest
 export npreg, kernelweights,TrainNet, AnalyzeNet
 export samin
 

@@ -1,22 +1,24 @@
 using Distributions
 # OLS fit and report results
-function ols(y, x; names="", vc="white", silent=false)
+function tsls(y, x, z; names="", vc="white", silent=false)
     n,k = size(x)
     if names==""
         names = 1:k
         names = names'
     end
-    b, fit, e = lsfit(y,x)
-    sigsq = (e'*e/(n-k))[1,1]
-    xx_inv = inv(x'*x)
-    ess = (e' * e)[1,1]
+    xhat = z*(z\x)
+    xx_inv = inv(xhat'x)
+    b = xx_inv*xhat'y
+    e = y - x*b
+    ess = (e'e)[1,1]
+    sigsq = ess/(n-k)
 
     # Ordinary or het. consistent variance estimate
     if vc=="white"
-        xe = x.*e
+        xe = xhat.*e
         varb = xx_inv*xe'xe*xx_inv
     elseif vc=="nw"
-        xe = x.*e
+        xe = xhat.*e
         lags = Int(max(round(n^0.25),1.0))
         varb = n*xx_inv*NeweyWest(xe,lags)*xx_inv
     else
@@ -30,7 +32,7 @@ function ols(y, x; names="", vc="white", silent=false)
     labels = ["coef", "se", "t", "p"]
     if !silent
         println("******************************************")
-        @printf("  OLS estimation, %d observations\n", n)
+        @printf("  2SLS estimation, %d observations\n", n)
         @printf("  R^2: %f   Sig^2: %f\n", rsq, sigsq)
         p = 2.0 - 2.0*cdf(TDist(n-k),abs.(t))
         results = [b seb t p]
