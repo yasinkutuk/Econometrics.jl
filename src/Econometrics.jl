@@ -21,11 +21,12 @@ include("TrainNet.jl")
 include("AnalyzeNet.jl")
 # optimization
 include("samin.jl")
-
+include("fminunc.jl")
+include("fmincon.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
 export lsfit, ols, tsls, NeweyWest
 export npreg, kernelweights,TrainNet, AnalyzeNet
-export samin
+export samin, fminunc, fmincon
 
 end
 
