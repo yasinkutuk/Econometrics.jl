@@ -23,7 +23,7 @@ function mleresults(model, theta, title="", names="")
 	println("")
 	prettyprint(a, clabels, names)
     println()
-	println("Information Criteria")
+    println("Information Criteria")
 	caic = -2.0*n*objvalue + k*(log(n)+1.0)
 	bic = -2.0*n*objvalue + k*log(n)
 	aic = -2.0*n*objvalue + 2.0*k
