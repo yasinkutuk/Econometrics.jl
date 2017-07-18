@@ -6,7 +6,7 @@ function fminunc(obj, x)
                             g_tol = 1e-6,
                             x_tol=1e-6,
                             f_tol=1e-12))
-    return results.minimizer, results.minimum
+    return results.minimizer, results.minimum, Optim.converged(results)
 end
 
 

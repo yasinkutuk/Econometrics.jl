@@ -1,4 +1,4 @@
-VERSION > v"0.4-" && __precompile__()
+VERSION > v"0.6-" && __precompile__()
 
 module Econometrics
 
@@ -23,10 +23,14 @@ include("AnalyzeNet.jl")
 include("samin.jl")
 include("fminunc.jl")
 include("fmincon.jl")
+# MLE
+include("mle.jl")
+include("mleresults.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
 export lsfit, ols, tsls, NeweyWest
 export npreg, kernelweights,TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
+export mle, mleresults
 
 end
 
