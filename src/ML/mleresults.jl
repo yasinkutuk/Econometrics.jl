@@ -12,7 +12,7 @@ function mleresults(model, theta, title="", names="")
     if converged == true convergence="Normal convergence"
     else convergence="No convergence"
     end
-    println("******************************************************")
+    println("************************************************************")
     if title !="" println(title) end
     println("MLE Estimation Results")
     println("BFGS convergence: ", convergence)
@@ -27,12 +27,12 @@ function mleresults(model, theta, title="", names="")
     caic = -2.0*n*objvalue + k*(log(n)+1.0)
     bic = -2.0*n*objvalue + k*log(n)
     aic = -2.0*n*objvalue + 2.0*k
-    infocrit = [caic; bic; aic]
-    infocrit = round.([infocrit infocrit/n],5)
+    infocrit = round.([caic; bic; aic],3)
+    infocrit = round.([infocrit infocrit/n],3)
     clabels = ["Crit.", "Crit/n"]
     rlabels = ["CAIC", "BIC", "AIC"]
     prettyprint(infocrit, clabels, rlabels)
-    println("******************************************************")
+    println("************************************************************")
     return thetahat, objvalue, V, converged
 end    
 

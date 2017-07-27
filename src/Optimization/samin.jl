@@ -191,7 +191,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                     if(ratio > 0.6) bounds[i] = bounds[i] * (1.0 + 2.0 * (ratio - 0.6) / 0.4) end
                     if(ratio < .4) bounds[i] = bounds[i] / (1.0 + 2.0 * ((0.4 - ratio) / 0.4)) end
                     # keep within initial bounds
-                    if(bounds[i] >= (ub[i] - lb[i]))
+                    if(bounds[i] > (ub[i] - lb[i]))
                         bounds[i] = ub[i] - lb[i]
                         test += 1
                     end
@@ -207,8 +207,8 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
         # intermediate output, if desired
         if(verbosity >= 2)
             println("samin: intermediate results before next temperature change")
-            println("temperature: ", t)
-            println("current best function value: ", fopt)
+            println("temperature: ", round(t,5))
+            println("current best function value: ", round(fopt,5))
             println("total evaluations so far: ", func_evals)
             println("total moves since last temperature reduction: ", nup + ndown + nrej)
             println("downhill: ", nup)
