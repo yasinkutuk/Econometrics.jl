@@ -82,6 +82,12 @@ Returns:
 
 Example: see samin_test
 =#
+function samin()
+    println("samin(), with no arguments, runs Pkg.dir/Econometrics/examples/samin_example.jl")
+    println("examine that file for information on how to call samin.jl")
+    include(Pkg.dir()*"/Econometrics/examples/samin_example.jl")
+end
+
 function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, functol=1e-8, paramtol=1e-5, verbosity=1, coverage_ok=0)
     n = size(x,1) # dimension of parameter
     #  Set initial values

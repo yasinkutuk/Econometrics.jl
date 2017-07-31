@@ -29,7 +29,7 @@ function ols(y, x; names="", vc="white", silent=false)
     rsq = (1.0 - ess / tss)
     labels = ["coef", "se", "t", "p"]
     if !silent
-        println("******************************************")
+        println("**************************************************")
         @printf("  OLS estimation, %d observations\n", n)
         @printf("  R^2: %f   Sig^2: %f\n", rsq, sigsq)
         p = 2.0 - 2.0*cdf(TDist(n-k),abs.(t))
@@ -42,7 +42,7 @@ function ols(y, x; names="", vc="white", silent=false)
         end
         println()
         prettyprint(results, labels, names)
-        println("******************************************")
+        println("**************************************************")
     end
     return b, varb, e, ess, rsq
     ""

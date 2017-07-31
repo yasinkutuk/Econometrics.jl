@@ -16,12 +16,7 @@ function fminunc()
     obj = x -> (x.^2)[1]
     # obj = x -> x'x # this would also work, as returns a Float64
     x = [2.0] # argument to objective function should be a vector, thus the brackets
-    results = Optim.optimize(obj, x, LBFGS(), 
-                            Optim.Options(
-                            g_tol = 1e-6,
-                            x_tol=1e-6,
-                            f_tol=1e-12))
-    return results.minimizer, results.minimum, Optim.converged(results)
+    results = fminunc(obj, x)
 end
 
 
