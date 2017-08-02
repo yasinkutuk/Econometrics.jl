@@ -1,22 +1,38 @@
-# moments() should return a nXg matrix of moment contributions
 using Calculus
-function gmm(theta, moments, weight)
+# moments should operate on a vector and return a nXg matrix
+# of moment contributions
+# weight should be gXg positive definite
+function gmm(moments, theta, weight)
     # average moments
-    m = theta -> mean(moments(theta),1) # 1Xg
+    m = theta -> vec(mean(moments(theta),1)) # 1Xg
     # moment contributions
     momentcontrib = theta -> moments(theta) # nXg
     # GMM criterion
-    obj = theta -> m(theta)*weight*m(theta)'
+    obj = theta -> ((m(theta))'weight*m(theta))[1,1]
     # do minimization
     thetahat, objvalue, converged = fminunc(obj, theta)
-    n = size(momentcontrib(theta),1) # how many observations?
-    D = Calculus.jacobian(m', vec(thetahat), :central) 
-    # covariance of moment contributions (need to add NW)
-    omega = cov(scorecontrib)
-    #HERE
-    V = Jinv*I*Jinv/n # sandwich form is preferred
-    #V = -Jinv/n      # other possibilities
-    #V = inv(I)/n
-    return thetahat, objvalue, V, converged
+    # derivative of average moments
+    D = (Calculus.jacobian(m, vec(thetahat), :central))' 
+    # moment contributions at estimate
+    ms = momentcontrib(thetahat)
+    return thetahat, objvalue, D, ms, converged
+end
+
+# called with no args runs this example
+function gmm()
+    println("simple GMM example, sampling from N(0,1)")
+    println("and using 3 moment conditions to estimate")
+    println("do edit(gmm,()) to see the example code that this is running")
+    # example of GMM: draws from N(0,1)
+    y = randn(100,1)
+    # 3 moment conditions
+    moments = theta -> [y-theta[1] (y.^2.0).-theta[2] (y.-theta[1]).^3.0]
+    # first round consistent
+    W = eye(3)
+    theta = [0.0, 1.0]
+    thetahat, objvalue, D, ms, converged = gmm(moments, theta, W)
+    # second round efficient
+    W = inv(cov(ms))
+    thetahat, objvalue, D, ms, converged = gmm(moments, thetahat, W)
 end    
 

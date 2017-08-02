@@ -29,12 +29,16 @@ include("ML/mleresults.jl")
 include("ML/Likelihoods/logit.jl")
 include("ML/Likelihoods/poisson.jl")
 include("ML/Likelihoods/normal.jl")
+# GMM
+include("GMM/gmm.jl")
+include("GMM/gmmresults.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
 export lsfit, ols, tsls, NeweyWest
 export npreg, kernelweights
 #export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
 export mle, mleresults, logit, poisson, normal
+export gmm, gmmresults
 
 end
 
