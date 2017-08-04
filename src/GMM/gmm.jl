@@ -8,7 +8,7 @@ function gmm(moments, theta, weight)
     # moment contributions
     momentcontrib = theta -> moments(theta) # nXg
     # GMM criterion
-    obj = theta -> ((m(theta))'weight*m(theta))[1,1]
+    obj = theta -> ((m(theta))'weight*m(theta))
     # do minimization
     thetahat, objvalue, converged = fminunc(obj, theta)
     # derivative of average moments

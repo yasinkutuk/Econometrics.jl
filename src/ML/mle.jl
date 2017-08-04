@@ -1,6 +1,6 @@
 using Calculus
 function mle(model, theta)
-    avg_obj = theta -> -mean(model(theta),1)[1,1] # average log likelihood
+    avg_obj = theta -> -mean(vec(model(theta))) # average log likelihood
     thetahat, objvalue, converged = fminunc(avg_obj, theta) # do the minimization of -logL
     objvalue = -objvalue
     obj = theta -> vec(model(theta)) # unaveraged log likelihood

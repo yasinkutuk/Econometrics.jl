@@ -26,7 +26,7 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
     println("Observations: ", n)
     println("Hansen-Sargan statistic: ", round(n*objvalue,5))
     if g > k
-        println("Hansen-Sargan p-value: ", 1.0 - cdf(Chisq(g-k),n*objvalue))
+        println("Hansen-Sargan p-value: ", round(1.0 - cdf(Chisq(g-k),n*objvalue),5))
     end    
     a =[thetahat se t p]
     clabels = ["estimate", "st. err", "t-stat", "p-value"]

@@ -1,5 +1,10 @@
 using StatsBase
-function dstats(x, rnames)
+function dstats(x, rnames="")
+    k = size(x,2)
+    if rnames==""
+        rnames = 1:k
+        rnames = rnames'
+    end
     m = mean(x,1)
     s = std(x,1)
     sk = m-m
@@ -12,7 +17,7 @@ function dstats(x, rnames)
     mx = maximum(x,1)
     cnames = ["mean", "std", "skew", "kurt", "min", "max"]
     stats = [m' s' sk' k' mn' mx'] 
-    prettyprint(round(stats,3), cnames, rnames);
+    prettyprint(round.(stats,3), cnames, rnames);
     return stats
 end    
 
