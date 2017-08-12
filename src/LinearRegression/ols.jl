@@ -1,5 +1,12 @@
 using Distributions
 # OLS fit and report results
+
+function ols()
+    println("ols(), with no arguments, runs Pkg.dir/Econometrics/examples/ols_example.jl")
+    println("examine that file for information on how to call ols.jl")
+    include(Pkg.dir()*"/Econometrics/examples/ols_example.jl")
+end
+
 function ols(y, x; names="", vc="white", silent=false)
     n,k = size(x)
     if names==""

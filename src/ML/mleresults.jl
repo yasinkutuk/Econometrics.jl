@@ -1,3 +1,17 @@
+using Distributions
+function mleresults()
+    x = randn(100,3)
+    beta = rand(3)
+    println("true betas: ")
+    prettyprint(beta)
+    y = zeros(100)
+    for i = 1:100
+        y[i] = rand(Poisson(exp.(x[i,:]'beta)))
+    end    
+    model = theta -> poisson(theta, y, x)
+    mleresults(model, beta, "simple ML example");
+end    
+
 function mleresults(model, theta, title="", names="")
     n = size(model(theta),1)
     thetahat, objvalue, V, converged = mle(model, theta)

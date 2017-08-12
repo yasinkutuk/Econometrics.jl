@@ -5,3 +5,10 @@ This is used in the graduate econometrics lecture notes at https://github.com/mc
 
 To install this, execute Pkg.clone("https://github.com/mcreel/Econometrics.jl.git") from the Julia prompt, then access the functions by "using Econometrics".
 
+The main functions will run a simple explanatory example if called with no arguments, e.g.,
+ols()
+fminunc()
+fmincon()
+samin()
+mleresults()
+gmmresults()
