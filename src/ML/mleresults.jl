@@ -1,5 +1,6 @@
 using Distributions
 function mleresults()
+    println("execute edit(mleresults,()) to examine the example code")
     x = randn(100,3)
     beta = rand(3)
     println("true betas: ")
