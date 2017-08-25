@@ -1,4 +1,4 @@
-#VERSION > v"0.6-" && __precompile__()
+__precompile__()
 
 module Econometrics
 
@@ -13,6 +13,7 @@ include("Utilities/lags.jl")
 include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
 include("LinearRegression/tsls.jl")
+include("LinearRegression/TestStatistics.jl")
 # nonparametrics
 include("NP/npreg.jl")
 include("NP/kernelweights.jl")
@@ -33,7 +34,7 @@ include("ML/Likelihoods/normal.jl")
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
-export lsfit, ols, tsls, NeweyWest
+export lsfit, ols, tsls, TestStatistics, NeweyWest
 export npreg, kernelweights
 #export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
