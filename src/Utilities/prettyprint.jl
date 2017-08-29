@@ -1,5 +1,5 @@
 # formatted print of array, with column names
-function prettyprint(a, cnames="", rnames="",digits=10, decimals=3)
+function prettyprint(a::Array{Float64}, cnames="", rnames="",digits=10, decimals=3)
     # TBD: try to use this to allow using specified digits and decimals
     #fmt = @sprintf("%d",digits)"."@sprintf("%d",decimals)"%f"
     #@eval dofmt(x) = @sprintf($fmt, x)

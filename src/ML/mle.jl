@@ -5,7 +5,7 @@ function mle(model, theta)
     objvalue = -objvalue
     obj = theta -> vec(model(theta)) # unaveraged log likelihood
     n = size(obj(theta),1) # how many observations?
-    scorecontrib = Calculus.jacobian(obj, vec(thetahat), :central) 
+    scorecontrib = Calculus.jacobian(obj, vec(thetahat), :central)
     I = cov(scorecontrib)
     J = Calculus.hessian(avg_obj, vec(thetahat), :central)
     Jinv = inv(J)
@@ -15,3 +15,8 @@ function mle(model, theta)
     return thetahat, objvalue, V, converged
 end    
 
+function mle()
+    println("mle(), with no arguments, runs Pkg.dir/Econometrics/examples/mle_example.jl")
+    println("examine that file for information on how to call mle.jl")
+    include(Pkg.dir()*"/Econometrics/examples/mle_example.jl")
+end 

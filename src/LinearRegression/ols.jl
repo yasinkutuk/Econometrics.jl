@@ -59,7 +59,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
         else    
             @printf("  Restricted LS estimation, %d observations\n", n)
         end    
-        @printf("  R^2: %f   Sig^2: %f\n", rsq, sigsq)
+        @printf("  R²: %f   σ²: %f\n", rsq, sigsq)
         p = 2.0 - 2.0*cdf(TDist(df),abs.(t))
         results = [b seb t p]
         if vc=="white"

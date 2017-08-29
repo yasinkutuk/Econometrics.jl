@@ -4,12 +4,12 @@
 # converted to Octave 13 Jan. 2003
 # converted to Julia 25 Aug. 2017
 # 
-# purpose: calculates F, Wald, Score and Likelihood Ratio tests for
+# purpose: calculates qF, Wald, Score and Likelihood Ratio tests for
 # linear model						 y=XB+e
 # 									 e~N(0,sig^2*I_n)
 # subject to linear restrictions  	 RB=r
 # 
-# format: [F, W, LR, S] = TestStatistics(y,x,R,r)
+# format: [qF, W, LR, S] = TestStatistics(y,x,R,r)
 # 
 # inputs:
 # 		 y: nx1 dependent variable
@@ -17,7 +17,8 @@
 # 		 R: R above, a qxk matrix
 # 		 r: r above, a qx1 vector
 # 
-# returns: F: the F statistic
+# returns: 
+#        qF: the qF statistic
 # 		 W: the Wald statistic
 # 		 S: the score statistic
 # 		 LR: the likelihood ratio statistic
@@ -47,13 +48,12 @@ function TestStatistics(y, x, R, r)
     # LR test
     lnl = -n/2*log(2*pi) - n/2*log(sigsqhat_mle) - e' * e/(2*sigsqhat_mle)
     lnl_r = -n/2*log(2*pi) - n/2*log(sigsqhat_mle_r) - e_r' * e_r/(2*sigsqhat_mle_r)
-    LR = 2*(lnl-lnl_r)
-	tests = [F, W, LR, S]
-	WLRS = [W, LR, S]
-	pvalues = [ccdf(FDist(q,n-k),F); ccdf(Chisq(q), WLRS)]
-    tests = [tests  pvalues]
-	TESTS = ["F","Wald","LR","Score"]
+    LR = 2.0*(lnl-lnl_r)
+	tests = [q*F[1], W[1], LR[1], S[1]]
+	pvalues = ccdf(Chisq(q), tests)
+    tests = [tests pvalues]
+	TESTS = ["qF","Wald","LR","Score"]
 	labels = ["Value","p-value"]
-	prettyprint(tests, labels, TESTS)
+    prettyprint(tests, labels, TESTS)
     return F, W, LR, S
 end
