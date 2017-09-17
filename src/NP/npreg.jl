@@ -8,8 +8,15 @@
 #
 # weights should sum to one by columns, they are typical 
 # nonparametric weights from a kernel.
+
+function npreg()
+    println("npreg(), with no arguments, runs Pkg.dir/Econometrics/examples/npreg_example.jl")
+    println("examine that file for information on how to call npreg.jl")
+    include(Pkg.dir()*"/Econometrics/examples/npreg_example.jl")
+end 
+
 function npreg(y::Array{Float64,2}, x::Array{Float64,2}, xeval::Array{Float64,2}, weights::Array{Float64,2}, order::Int64=1, do_median::Bool=false, do_ci::Bool=false)
-    weights = sqrt(weights)
+    weights = sqrt.(weights)
     neval, dimx = size(xeval)
     n, dimy = size(y)
     # local constant
@@ -24,10 +31,10 @@ function npreg(y::Array{Float64,2}, x::Array{Float64,2}, xeval::Array{Float64,2}
     # local quadratic
         stacked = [x; xeval]
         # cross products
-        CP = Array(Float64, n+neval, Int((dimx-1)*dimx/2))
+        CP = Array{Float64}(n+neval, Int((dimx-1)*dimx/2))
         cpind = 0
-        @inbounds for i = 1:dimx-1
-            @inbounds for j = (i+1):dimx
+        for i = 1:dimx-1
+            for j = (i+1):dimx
                 cpind += 1
                 CP[:,cpind] = stacked[:,[i]].*stacked[:,[j]]
             end
@@ -37,8 +44,8 @@ function npreg(y::Array{Float64,2}, x::Array{Float64,2}, xeval::Array{Float64,2}
         Xeval = view(ZZ,(n+1):n+neval,:)
     end
     # do the fit
-    yhat = Array(Float64, neval, dimy)
-    @inbounds for i = 1:neval
+    yhat = Array{Float64}(neval, dimy)
+    for i = 1:neval
         WX = weights[:,i] .* X
         Wy = weights[:,i] .* y
         b = WX\Wy

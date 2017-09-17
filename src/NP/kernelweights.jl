@@ -18,7 +18,7 @@ function kernelweights(x, xeval, bandwidth, prewhiten=true, kernel="gaussian", n
     if kernel=="gaussian"
         for i=1:neval
             z = (x.-xeval[[i],:])/bandwidth
-            weights[:,i] = exp(-0.5*sum(z.*z,2))
+            weights[:,i] = exp.(-0.5*sum(z.*z,2))
         end
     end
 
@@ -29,12 +29,9 @@ function kernelweights(x, xeval, bandwidth, prewhiten=true, kernel="gaussian", n
             ind = sortperm(di) # indices of k nearest neighbors
             selected = vec(ind[1:neighbors,:])
             z = (x[selected,:].-xeval[[i],:])/bandwidth
-            weights[selected,i] = exp(-0.5*sum(z.*z,2))
+            weights[selected,i] = exp.(-0.5*sum(z.*z,2))
         end
     end    
     weights ./= sum(weights,1)
     return weights
 end
-
-
-
