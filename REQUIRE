@@ -3,6 +3,6 @@ Compat
 Distributions
 Plots
 Distances
-MXNet
+#MXNet
 Optim
 NLopt
