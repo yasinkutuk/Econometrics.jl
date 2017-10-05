@@ -272,7 +272,8 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                         println(lnobds, " out of  ", (nup+ndown+nrej), " evaluations were out of bounds in the last round.")
                         println("Expand bounds and re-run, unless this is a constrained minimization.")
                     end
-                    @printf("\n     Obj. value:  %16.5f\n\n", fopt)
+                    println("total number of objective function evaluations: ", func_evals)
+                    @printf("\n     Obj. value:  %16.10f\n\n", fopt)
                     println("       parameter      search width")
                     for i=1:n
                         @printf("%16.5f  %16.5f \n", xopt[i], bounds[i])
