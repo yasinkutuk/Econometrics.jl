@@ -1,5 +1,5 @@
 using NLopt
-function fmincon(obj, startval, R=[], r=[], lb=[], ub=[])
+function fmincon(obj, startval, R=[], r=[], lb=[], ub=[];iterlim=0)
     # the objective is an anonymous function
     function objective_function(x::Vector{Float64}, grad::Vector{Float64})
         obj_func_value = obj(x)[1,1]
@@ -23,6 +23,7 @@ function fmincon(obj, startval, R=[], r=[], lb=[], ub=[])
     end    
     xtol_rel!(opt,1e-8)
     ftol_rel!(opt,1e-8)
+    maxeval!(opt, iterlim)
     (objvalue, xopt, flag) = NLopt.optimize(opt, startval)
     return xopt, objvalue, flag
 end
