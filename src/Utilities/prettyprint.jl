@@ -22,7 +22,7 @@ function prettyprint(a::Array{Float64}, cnames="", rnames="",digits=10, decimals
         end
         for j = 1:size(a,2)
             # TBD: use fmt defined above to print array contents
-            @printf("%10.3f",(a[i,j]))
+            @printf("%10.5f",(a[i,j]))
         end
         @printf("\n")
     end    
