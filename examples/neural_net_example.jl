@@ -1,5 +1,5 @@
 # example of neural net functions in Econometrics.jl
-using Econometrics
+using Econometrics, MXNet
 
 # generate draws from linear regression model, and
 # fitted coefficients from correct model, plus
@@ -45,8 +45,10 @@ function main()
     noutputs = 6
     trainsize = 80000
     savefile = "olsnet"
-    layerconfig = [20, 10, 0, 0]
-    TrainNet(data, trainsize, noutputs, layerconfig, 512, 50, savefile)
+    net = @mx.chain mx.Variable(:data) =>
+        mx.MLP([20,10,6]) =>
+        mx.LinearRegressionOutput(mx.Variable(:label))
+    TrainNet(data, trainsize, noutputs, net, 512, 50, savefile)
     Y = data[trainsize+1:end,1:noutputs]
     olsfit = data[trainsize+1:end,(noutputs+1):(2*noutputs)]
     title = "linear regression example"

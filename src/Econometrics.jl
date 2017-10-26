@@ -18,8 +18,8 @@ include("LinearRegression/TestStatistics.jl")
 include("NP/npreg.jl")
 include("NP/kernelweights.jl")
 include("NP/NeweyWest.jl")
-#include("NN/TrainNet.jl")
-#include("NN/AnalyzeNet.jl")
+include("NN/TrainNet.jl")
+include("NN/AnalyzeNet.jl")
 # optimization
 include("Optimization/samin.jl")
 include("Optimization/fminunc.jl")
@@ -36,7 +36,7 @@ include("GMM/gmmresults.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export npreg, kernelweights
-#export TrainNet, AnalyzeNet
+export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
 export mle, mleresults, logit, poisson, normal
 export gmm, gmmresults
