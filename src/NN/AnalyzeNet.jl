@@ -4,7 +4,6 @@ function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", do
     Y = data[trainsize+1:end,1:noutputs]
     data, m, s = stnorm(data)
     X = data[trainsize+1:end,noutputs+1:end]'
-    ninputs = size(X,1)
     model = mx.load_checkpoint(savefile, 20, mx.FeedForward) # load trained model
     # obtain predictions
     provider = mx.ArrayDataProvider(:data => X)
@@ -20,7 +19,7 @@ function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", do
     rsq = 1.0 .- mse./mean((Y .- mean(Y,1)).^2.0,1)
     names = ["bias","rmse","mse","R2"]
     println()
-    println("________________________________________")
+    println("__________________________________________________")
     println("Neural net indirect inference results")
     if title != "" println(title) end
     if params != ""
@@ -28,20 +27,11 @@ function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", do
     else
         prettyprint([bias' rmse' mse' rsq'], names)
     end     
-    println("________________________________________")
+    println("__________________________________________________")
     if doplot
         # get the first layer parameters for influence analysis
         model = mx.load_checkpoint(savefile, 20) # load trained model
-        params = copy(collect(values(model[2])))
-        beta = 0.0
-        for i = 1:size(params,1)
-            test = prod(size(params[i])) == noutputs*ninputs
-            if test 
-                beta = copy(params[i])
-                prettyprint(beta)
-                break
-            end
-        end    
+        beta = copy(model[2][:fullyconnected0_weight])
         z = maximum(abs.(beta),2);
         cax3 = matshow(z', interpolation="nearest")
         colorbar(cax3)
