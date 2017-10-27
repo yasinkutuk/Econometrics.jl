@@ -29,7 +29,7 @@ function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, sav
                             mx.FullyConnected(num_hidden=Outputsize) =>
                             mx.LinearRegressionOutput(label)
     elseif L3size != 0
-        net  = @mx.chain    mxVariable(:data) =>
+        net  = @mx.chain    mx.Variable(:data) =>
                             mx.FullyConnected(num_hidden=L1size) =>
                             mx.Activation(act_type=:relu) =>
                             mx.FullyConnected(num_hidden=L2size) =>
