@@ -9,6 +9,7 @@ include("Utilities/sortbyc.jl")
 include("Utilities/dstats.jl")
 include("Utilities/lag.jl")
 include("Utilities/lags.jl")
+include("Utilities/vech.jl")
 # linear regression
 include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
@@ -33,7 +34,7 @@ include("ML/Likelihoods/normal.jl")
 # GMM
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
-export stnorm,prettyprint, sortbyc, dstats, lag, lags
+export stnorm,prettyprint, sortbyc, dstats, lag, lags, vech
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export npreg, kernelweights
 export TrainNet, AnalyzeNet
