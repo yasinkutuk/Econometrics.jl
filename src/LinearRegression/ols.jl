@@ -28,7 +28,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
         df = n-k-q
         sigsq = ess/df
         A = eye(k) - xx_inv*R'*P_inv*R;  # the matrix relating b and b_r
-    end  
+    end
     # Ordinary or het. consistent variance estimate
     if vc=="white"
         xe = x.*e
@@ -43,7 +43,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
     # restricted LS?
     if R !=[]
         varb = A*varb*A'
-    end    
+    end
     # common to both ordinary and restricted
     seb = sqrt.(diag(varb))
     t = b ./ seb
@@ -56,11 +56,11 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
         println("**************************************************")
         if R==[]
             @printf("  OLS estimation, %d observations\n", n)
-        else    
+        else
             @printf("  Restricted LS estimation, %d observations\n", n)
-        end    
+        end
         @printf("  R²: %f   σ²: %f\n", rsq, sigsq)
-        p = 2.0 - 2.0*cdf(TDist(df),abs.(t))
+        p = 2.0 - 2.0*cdf.(TDist(df),abs.(t))
         results = [b seb t p]
         if vc=="white"
             println("  White's covariance estimator")
