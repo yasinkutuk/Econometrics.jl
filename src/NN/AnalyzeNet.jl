@@ -1,10 +1,10 @@
 using PyPlot
 # this script makes predictions, gets RMSEs, and plots the figure
-function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", doplot=false)
+function AnalyzeNet(savefile, epochs, data, trainsize, noutputs; title="", params="", doplot=false)
     Y = data[trainsize+1:end,1:noutputs]
     data, m, s = stnorm(data)
     X = data[trainsize+1:end,noutputs+1:end]'
-    model = mx.load_checkpoint(savefile, 20, mx.FeedForward) # load trained model
+    model = mx.load_checkpoint(savefile, epochs, mx.FeedForward) # load trained model
     # obtain predictions
     provider = mx.ArrayDataProvider(:data => X)
     fit = mx.predict(model, provider)
@@ -30,7 +30,7 @@ function AnalyzeNet(savefile, data, trainsize, noutputs; title="", params="", do
     println("__________________________________________________")
     if doplot
         # get the first layer parameters for influence analysis
-        model = mx.load_checkpoint(savefile, 20) # load trained model
+        model = mx.load_checkpoint(savefile, epochs) # load trained model
         beta = copy(model[2][:fullyconnected0_weight])
         z = maximum(abs.(beta),2);
         cax3 = matshow(z', interpolation="nearest")

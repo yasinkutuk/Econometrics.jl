@@ -46,13 +46,12 @@ function main()
     trainsize = 80000
     savefile = "olsnet"
     layerconfig = [20, 10, 0, 0]
-    TrainNet(data, trainsize, noutputs, layerconfig, 512, 50, savefile)
+    epochs = 30
+    TrainNet(data, trainsize, noutputs, layerconfig, 512, epochs, savefile)
     Y = data[trainsize+1:end,1:noutputs]
     olsfit = data[trainsize+1:end,(noutputs+1):(2*noutputs)]
     title = "linear regression example"
     params = ["constant", "x1","x2","x3","x4","x5"]
-    fit = AnalyzeNet(savefile, data, trainsize, noutputs, title=title, params=params, doplot=true);
-    run(`rm olsnet-0020.params`)
-    run(`rm olsnet-symbol.json`)
+    fit = AnalyzeNet(savefile, epochs, data, trainsize, noutputs, title=title, params=params, doplot=true);
 end
 main();
