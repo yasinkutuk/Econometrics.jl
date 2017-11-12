@@ -53,5 +53,6 @@ function main()
     title = "linear regression example"
     params = ["constant", "x1","x2","x3","x4","x5"]
     fit = AnalyzeNet(savefile, epochs, data, trainsize, noutputs, title=title, params=params, doplot=true);
+    rm.(glob("olsnet-*"))
 end
 main();
