@@ -23,7 +23,7 @@ function mleresults(model, theta, title="", names="")
     end
     se = sqrt.(diag(V))
     t = thetahat ./ se
-    p = 2.0 .- 2.0*cdf(TDist(n-k),abs.(t))
+    p = 2.0 .- 2.0*cdf.(TDist(n-k),abs.(t))
     if converged == true convergence="Normal convergence"
     else convergence="No convergence"
     end

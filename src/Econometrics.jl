@@ -17,6 +17,7 @@ include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
 # nonparametrics
 include("NP/npreg.jl")
+include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
 include("NP/NeweyWest.jl")
 include("NN/TrainNet.jl")
@@ -37,6 +38,7 @@ include("GMM/gmmresults.jl")
 export stnorm,prettyprint, sortbyc, dstats, lag, lags, vech
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export npreg, kernelweights
+export npdensity
 export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
 export mle, mleresults, logit, poisson, normal

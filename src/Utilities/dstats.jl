@@ -15,8 +15,12 @@ function dstats(x, rnames="")
     end
     mn = minimum(x,1)
     mx = maximum(x,1)
-    cnames = ["mean", "std", "skew", "kurt", "min", "max"]
-    stats = [m' s' sk' k' mn' mx'] 
+    q05 = zeros(k)
+    q95 = zeros(k)
+    for i = 1:size(x,2) q05[i] = quantile(x[:,i], 0.05) end
+    for i = 1:size(x,2) q95[i] = quantile(x[:,i], 0.95) end
+    cnames = ["mean", "std", "skew", "kurt", "min", "max", "q05", "q95"]
+    stats = [m' s' sk' k' mn' mx' q05' q95'] 
     prettyprint(round.(stats,3), cnames, rnames);
     return stats
 end    
