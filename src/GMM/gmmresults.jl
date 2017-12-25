@@ -40,7 +40,7 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
     if converged == true convergence="Normal convergence"
     else convergence="No convergence"
     end
-    println("************************************************************")
+    PrintDivider()
     if title !="" println(title) end
     println("GMM Estimation Results")
     println("BFGS convergence: ", convergence)
@@ -50,12 +50,9 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
         println("Hansen-Sargan p-value: ", round(1.0 - cdf(Chisq(g-k),n*objvalue),5))
     end    
     a =[thetahat se t p]
-    clabels = ["estimate", "st. err", "t-stat", "p-value"]
     println("")
-    prettyprint(a, clabels, names)
+    PrintEstimationResults(a, names)
     println()
-    println("************************************************************")
+    PrintDivider()
     return thetahat, objvalue, V, converged
 end    
-
-

@@ -27,16 +27,15 @@ function mleresults(model, theta, title="", names="")
     if converged == true convergence="Normal convergence"
     else convergence="No convergence"
     end
-    println("************************************************************")
+    PrintDivider()
     if title !="" println(title) end
     println("MLE Estimation Results")
     println("BFGS convergence: ", convergence)
     println("Average Log-L: ", round(objvalue,5))
     println("Observations: ", n)
     a =[thetahat se t p]
-    clabels = ["estimate", "st. err", "t-stat", "p-value"]
     println("")
-    prettyprint(a, clabels, names)
+    PrintEstimationResults(a, names)
     println()
     println("Information Criteria")
     caic = -2.0*n*objvalue + k*(log(n)+1.0)
@@ -47,7 +46,7 @@ function mleresults(model, theta, title="", names="")
     clabels = ["Crit.", "Crit/n"]
     rlabels = ["CAIC", "BIC", "AIC"]
     prettyprint(infocrit, clabels, rlabels)
-    println("************************************************************")
+    PrintDivider()
     return thetahat, objvalue, V, converged
 end    
 

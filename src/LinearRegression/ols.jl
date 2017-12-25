@@ -50,10 +50,9 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
     tss = y - mean(y)
     tss = (tss'*tss)[1,1]
     rsq = (1.0 - ess / tss)
-    labels = ["coef", "se", "t", "p"]
     if !silent
         println()
-        println("**************************************************")
+        PrintDivider()
         if R==[]
             @printf("  OLS estimation, %d observations\n", n)
         else
@@ -69,8 +68,8 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
             println("  Newey-West covariance estimator")
         end
         println()
-        prettyprint(results, labels, names)
-        println("**************************************************")
+        PrintEstimationResults(results, names)
+        PrintDivider()
     end
     return b, varb, e, ess, rsq
     ""
