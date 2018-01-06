@@ -34,6 +34,7 @@ include("ML/mleresults.jl")
 include("ML/Likelihoods/logit.jl")
 include("ML/Likelihoods/poisson.jl")
 include("ML/Likelihoods/normal.jl")
+include("ML/Likelihoods/garch11.jl")
 # GMM
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
@@ -44,7 +45,7 @@ export npreg, kernelweights
 export npdensity
 export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
-export mle, mleresults, logit, poisson, normal
+export mle, mleresults, logit, poisson, normal, garch11
 export gmm, gmmresults
 
 end
