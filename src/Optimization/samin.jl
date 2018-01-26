@@ -202,10 +202,10 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                         test += 1
                     end
                 else
-                    test = test + 1 # make sure coverage check passes for the fixed parameters
+                    test += 1 # make sure coverage check passes for the fixed parameters
                 end    
             end
-            nacp = nacp - nacp # set back to zero
+            nacp = 0 # set back to zero
             # check if we cover parameter space, if we have yet to do so
             if (coverage_ok != 1) coverage_ok = (test == n) end
         end
@@ -283,14 +283,14 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
             end
             # Reduce temperature, record current function value in the
             # list of last "neps" values, and loop again
-            t = rt * t
+            t *= rt
             for i = neps:-1:2
                 fstar[i] = fstar[i-1]
             end    
             f = copy(fopt)
             x = copy(xopt)
         else  # coverage not ok - increase temperature quickly to expand search area
-            t = 10. * t
+            t *= 10.0
             for i = neps:-1:2
                 fstar[i] = fstar[i-1]
             end    

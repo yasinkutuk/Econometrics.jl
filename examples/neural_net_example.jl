@@ -1,5 +1,5 @@
 # example of neural net functions in Econometrics.jl
-using Econometrics
+using Econometrics, Glob
 
 # generate draws from linear regression model, and
 # fitted coefficients from correct model, plus

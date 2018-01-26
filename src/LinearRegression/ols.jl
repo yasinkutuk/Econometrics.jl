@@ -46,6 +46,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
     end
     # common to both ordinary and restricted
     seb = sqrt.(diag(varb))
+    seb = seb.*(seb.>1e-16) # round off to zero when there are restrictions
     t = b ./ seb
     tss = y - mean(y)
     tss = (tss'*tss)[1,1]
