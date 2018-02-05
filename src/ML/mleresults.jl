@@ -41,10 +41,10 @@ function mleresults(model, theta, title="", names="")
     caic = -2.0*n*objvalue + k*(log(n)+1.0)
     bic = -2.0*n*objvalue + k*log(n)
     aic = -2.0*n*objvalue + 2.0*k
-    infocrit = round.([caic; bic; aic],3)
-    infocrit = round.([infocrit infocrit/n],3)
+    infocrit = round.([caic; bic; aic],5)
+    infocrit = round.([infocrit infocrit/n],5)
     clabels = ["Crit.", "Crit/n"]
-    rlabels = ["CAIC", "BIC", "AIC"]
+    rlabels = ["CAIC ", "BIC ", "AIC "]
     prettyprint(infocrit, clabels, rlabels)
     PrintDivider()
     return thetahat, objvalue, V, converged

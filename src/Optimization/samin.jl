@@ -83,9 +83,35 @@ Returns:
 Example: see samin_test
 =#
 function samin()
-    println("samin(), with no arguments, runs Pkg.dir/Econometrics/examples/samin_example.jl")
-    println("examine that file for information on how to call samin.jl")
-    include(Pkg.dir()*"/Econometrics/examples/samin_example.jl")
+    println("samin(), with no arguments, runs an example of usage")
+    println("execute edit(samin,()) to see the example")
+
+    junk=2. # shows use of obj. fun. as a closure
+    function sse(x)
+        objvalue = junk + sum(x.*x)
+    end
+    k = 5
+    x = rand(k,1)
+    lb = -ones(k,1)
+    ub = -lb
+    # converge to global opt
+    println("normal convergence, terse output")
+    @time xopt = samin(sse, x, lb, ub, verbosity=1)
+    # converge to global opt, see final parameters
+    println("normal convergence, more verbose output")
+    @time xopt = samin(sse, x, lb, ub, verbosity=2)
+    # no convergence within iteration limit
+    println("no convergence within iter limit")
+    @time xopt = samin(sse, x, lb, ub, maxevals=10, verbosity=1)
+    # initial point out of bounds
+    println("initial point out of bounds")
+    lb = 0.5*ub
+    x[1,1] = 0.2
+    xopt = samin(sse, x, lb, ub, verbosity=1)
+    # optimum on bound of parameter space
+    println("optimum on bounds of parameter space")
+    x = 0.5 .+ 0.5*rand(k,1)
+    xopt = samin(sse, x, lb, ub, verbosity=1)
 end
 
 function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, functol=1e-8, paramtol=1e-5, verbosity=1, coverage_ok=0)
@@ -119,7 +145,6 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
         nnew = 0
         ndown = 0
         lnobds = 0
-
         # repeat nt times then adjust temperature
         for m = 1:nt
             # repeat ns times, then adjust bounds
@@ -233,7 +258,6 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
         end        
         # Check for convergence, if we have covered the parameter space
         if (coverage_ok)
-
             # last value close enough to last neps values?
             fstar[1] = f
             test = 0
@@ -241,7 +265,6 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                 test += (abs(f - fstar[i]) > functol)
             end
             test = (test > 0) # if different from zero, function conv. has failed
-
             # last value close enough to overall best?
             if (((fopt - f) <= functol) && (!test))
                 # check for bound narrow enough for parameter convergence

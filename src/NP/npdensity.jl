@@ -23,4 +23,4 @@ function npdensity(z)
         end
     end
     return p
-end    
+end 

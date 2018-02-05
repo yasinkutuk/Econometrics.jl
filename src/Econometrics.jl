@@ -17,6 +17,8 @@ include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
 include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
+# Bayesian
+include("Bayesian/MCMC.jl")
 # nonparametrics
 include("NP/npreg.jl")
 include("NP/npdensity.jl")
@@ -34,18 +36,18 @@ include("ML/mleresults.jl")
 include("ML/Likelihoods/logit.jl")
 include("ML/Likelihoods/poisson.jl")
 include("ML/Likelihoods/normal.jl")
-include("ML/Likelihoods/garch11.jl")
 # GMM
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
 export stnorm, prettyprint, sortbyc, dstats, lag, lags, vech
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
+export mcmc
 export npreg, kernelweights
 export npdensity
 export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
-export mle, mleresults, logit, poisson, normal, garch11
+export mle, mleresults, logit, poisson, normal
 export gmm, gmmresults
 
 end
