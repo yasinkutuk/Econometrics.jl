@@ -18,7 +18,7 @@ include("LinearRegression/ols.jl")
 include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
 # Bayesian
-include("Bayesian/MCMC.jl")
+include("Bayesian/mcmc.jl")
 # nonparametrics
 include("NP/npreg.jl")
 include("NP/npdensity.jl")

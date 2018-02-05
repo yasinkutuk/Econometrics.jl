@@ -1,5 +1,10 @@
-using Distributions
-# OLS fit and report results
+"""
+    tsls(y, x, z)
+
+    Two stage least squares regression of y on x, using instruments z
+
+"""
+
 function tsls(y, x, z; names="", vc="white", silent=false)
     n,k = size(x)
     if names==""

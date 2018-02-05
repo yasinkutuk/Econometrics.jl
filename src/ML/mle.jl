@@ -1,10 +1,21 @@
-using Calculus
-function mle(model, theta)
-    avg_obj = theta -> -mean(vec(model(theta))) # average log likelihood
-    thetahat, objvalue, converged = fminunc(avg_obj, theta) # do the minimization of -logL
+"""
+    mle(model, θ)
+
+Maximum likelihood estimation.
+
+* model should be a function that gives the vector of log likelihoods of 
+the observations
+* θ is the parameter vector
+* execute mleresults() for an example, or edit(mleresults,()) to see the code.
+
+"""
+
+function mle(model, θ)
+    avg_obj = θ -> -mean(vec(model(θ))) # average log likelihood
+    thetahat, objvalue, converged = fminunc(avg_obj, θ) # do the minimization of -logL
     objvalue = -objvalue
-    obj = theta -> vec(model(theta)) # unaveraged log likelihood
-    n = size(obj(theta),1) # how many observations?
+    obj = θ -> vec(model(θ)) # unaveraged log likelihood
+    n = size(obj(θ),1) # how many observations?
     scorecontrib = Calculus.jacobian(obj, vec(thetahat), :central)
     I = cov(scorecontrib)
     J = Calculus.hessian(avg_obj, vec(thetahat), :central)
@@ -16,7 +27,6 @@ function mle(model, theta)
 end    
 
 function mle()
-    println("mle(), with no arguments, runs Pkg.dir/Econometrics/examples/mle_example.jl")
-    println("examine that file for information on how to call mle.jl")
-    include(Pkg.dir()*"/Econometrics/examples/mle_example.jl")
+    println("mle(), with no arguments, runs mleresults(), which show usage")
+    mleresults()
 end 

@@ -1,17 +1,20 @@
-#= 
+""" 
+    chain = mcmc(θ, reps, burnin, Prior, lnL, Proposal)
 
-simple MCMC 
-use this for a model by pointing
-mcmcPrior = θ -> your_prior(θ, whatever other args)
-mcmcLnL = θ -> your_log_likelihood(θ, whatever other args)
-mcmcProposal = θ -> your_proposal(θ, whatever other args)
-mcmcProposalDensity = (θᵗ,θ) -> 1.0 if proposal is symmetric, or to the real density, if not
-θ is the current parameter, θᵗ is the trial value
+    Simple MH MCMC
 
-called with no arguments, runs the simple example at the bottom
+    You must set the needed functions, e.g.,:
+    Prior = θ -> your_prior(θ, whatever other args)
+    lnL = θ -> your_log_likelihood(θ, whatever other args)
+    Proposal = θ -> your_proposal(θ, whatever other args)
+    (optionally) mcmcProposalDensity = (θᵗ,θ) -> your_proposal_density
 
-=#
-using Distributions
+    then get the chain using the above syntax, or optionally,
+    (non-symmetric proposal) chain = mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
+    (example code) mcmc(): runs a simple example. edit(mcmc,()) to see the code
+
+"""
+
 
 function mcmc()
     println("mcmc(), called with no arguments, runs a simple example")

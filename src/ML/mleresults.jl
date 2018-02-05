@@ -1,21 +1,30 @@
-using Distributions
+"""
+    mleresults(model, θ)
+
+Do maximum likelihood estimation, where model is a function that gives
+the vector of log likelihoods of the observations, and θ is the
+parameter vector. call edit(mleresults()) to see a coded example.
+
+"""
+
+
 function mleresults()
     println("execute edit(mleresults,()) to examine the example code")
     x = randn(100,3)
-    beta = rand(3)
+    β = rand(3)
     println("true betas: ")
-    prettyprint(beta)
+    prettyprint(β)
     y = zeros(100)
     for i = 1:100
-        y[i] = rand(Poisson(exp.(x[i,:]'beta)))
+        y[i] = rand(Poisson(exp.(x[i,:]'β)))
     end    
-    model = theta -> poisson(theta, y, x)
-    mleresults(model, beta, "simple ML example");
+    model = β -> poisson(β, y, x)
+    mleresults(model, β, "simple ML example");
 end    
 
-function mleresults(model, theta, title="", names="")
-    n = size(model(theta),1)
-    thetahat, objvalue, V, converged = mle(model, theta)
+function mleresults(model, θ, title="", names="")
+    n = size(model(θ),1)
+    thetahat, objvalue, V, converged = mle(model, θ)
     k = size(V,1)
     if names==""
         names = 1:k
