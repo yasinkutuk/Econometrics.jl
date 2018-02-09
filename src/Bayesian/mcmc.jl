@@ -63,7 +63,7 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=tr
         naccept[i] += accept
         if (mod(rep,reportevery)==0 & report)
             println(θ)
-            println("acceptance rate: ", size(θ,1)*naccept/reportevery)
+            println("acceptance rate by parameter: ", naccept/reportevery)
             naccept = naccept - naccept
         end    
         if rep > burnin

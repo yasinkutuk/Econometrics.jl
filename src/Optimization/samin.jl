@@ -1,49 +1,47 @@
-#= samin.jl
+""" 
+    samin(obj_fn, x, lb, ub) 
 
-  History: M. Creel's translation of Octave code samin.cc, also by Creel,
-  which was originally based on Gauss code by E.G. Tsionas. A source
-  for the Gauss code is http://web.stanford.edu/~doubleh/otherpapers/sa.txt
+Minimization of a function, over box constraints, via simulated annealing.
+Call samin() for an example, and/or edit(samin,()) to see the code.
 
-  The original Fortran code by W. Goffe is at http://www.degruyter.com/view/j/snde.1996.1.3/snde.1996.1.3.1020/snde.1996.1.3.1020.xml?format=INT
+History: Bassed on Octave code samin.cc, also by Creel,
+which was originally based on Gauss code by E.G. Tsionas. A source
+for the Gauss code is http://web.stanford.edu/~doubleh/otherpapers/sa.txt
+The original Fortran code by W. Goffe is at 
+http://www.degruyter.com/view/j/snde.1996.1.3/snde.1996.1.3.1020/snde.1996.1.3.1020.xml?format=INT
+Tsionas and Goffe agreed to MIT licensing of samin.jl in email
+messages to Creel.
 
-  Tsionas and Goffe agreed to MIT licensing of samin.jl in email
-  messages to Creel.
-  
-  The original Fortran code accompanies  the article
-  Goffe, William L. (1996) "SIMANN: A Global Optimization Algorithm
-    using Simulated Annealing " Studies in Nonlinear Dynamics & Econometrics
-    Oct96, Vol. 1 Issue 3.
+This Julia code uses the same names for control variables,
+for the most part. A notable difference is that the initial
+temperature can be found automatically to ensure that the active
+bounds when the temperature begins to reduce cover the entire
+parameter space (defined as a n-dimensional rectangle that is the
+Cartesian product of the(lb_i, ub_i), i = 1,2,..n. The code also
+allows for parameters to be restricted, by setting lb_i = ub_i,
+for the appropriate i.
 
-  This Julia code uses the same names for control variables,
-  for the most part. A notable difference is that the initial
-  temperature can be found automatically to ensure that the active
-  bounds when the temperature begins to reduce cover the entire
-  parameter space (defined as a n-dimensional rectangle that is the
-  Cartesian product of the(lb_i, ub_i), i = 1,2,..n. The code also
-  allows for parameters to be restricted, by setting lb_i = ub_i,
-  for the appropriate i.
+References:
+Goffe, William L. (1996) "SIMANN: A Global Optimization Algorithm
+  using Simulated Annealing " Studies in Nonlinear Dynamics & Econometrics
+  Oct96, Vol. 1 Issue 3.
 
-  Other relevant articles (among many):
-  Corana et. al., (1987) "Minimizing Multimodal Functions of Continuous
-    Variables with the "Simulated Annealing" Algorithm",
-    ACM Transactions on Mathematical Software, V. 13, N. 3.
+Goffe, et. al. (1994) "Global Optimization of Statistical Functions
+  with Simulated Annealing", Journal of Econometrics,
+  V. 60, N. 1/2.    
 
-  Goffe, et. al. (1994) "Global Optimization of Statistical Functions
-    with Simulated Annealing", Journal of Econometrics,
-    V. 60, N. 1/2.    
-
-usage: x, obj, convergence, details = samin(f,
-                                            x_init,
-                                            lb,
-                                            ub,
-                                            nt,
-                                            ns,
-                                            rt,
-                                            maxevals,
-                                            neps,
-                                            functol,
-                                            paramtol,
-                                            verbosity)
+Usage details: x, obj, convergence, details = samin(f,
+                                          x_init,
+                                          lb,
+                                          ub,
+                                          nt,
+                                          ns,
+                                          rt,
+                                          maxevals,
+                                          neps,
+                                          functol,
+                                          paramtol,
+                                          verbosity)
 Arguments:
 REQUIRED
 * f: objective function
@@ -80,8 +78,8 @@ Returns:
            * second: temperature
            * third: function value
 
-Example: see samin_test
-=#
+"""
+
 function samin()
     println("samin(), with no arguments, runs an example of usage")
     println("execute edit(samin,()) to see the example")
@@ -94,12 +92,9 @@ function samin()
     x = rand(k,1)
     lb = -ones(k,1)
     ub = -lb
-    # converge to global opt
-    println("normal convergence, terse output")
-    @time xopt = samin(sse, x, lb, ub, verbosity=1)
     # converge to global opt, see final parameters
-    println("normal convergence, more verbose output")
-    @time xopt = samin(sse, x, lb, ub, verbosity=2)
+    println("normal convergence, see only final results")
+    @time xopt = samin(sse, x, lb, ub, verbosity=1)
     # no convergence within iteration limit
     println("no convergence within iter limit")
     @time xopt = samin(sse, x, lb, ub, maxevals=10, verbosity=1)
