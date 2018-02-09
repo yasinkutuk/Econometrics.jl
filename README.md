@@ -12,3 +12,13 @@ fmincon()
 samin()
 mleresults()
 gmmresults()
+
+Basic OLS:
+![OLS](https://github.com/mcreel/Econometrics.jl/blob/master/ols.png)
+
+Indirect inference using neural net to map overidentifying statistics to parameter:
+![nn2](https://github.com/mcreel/Econometric
+
+Figure out what statistics are important inputs to the neural net:
+![nn](https://github.com/mcreel/Econometrics.jl/blob/master/nn.svg)
+
