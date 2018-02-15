@@ -1,5 +1,15 @@
-# unrestricted OLS using optimize (Optim)
 using Optim
+"""
+    xopt, fopt, converged = fminunc(obj, startval)
+
+Minimize the function obj, starting at startval.
+
+fminunc() with no arguments will run an example, execute edit(fminunc,()) to see the code.
+fminunc() uses Optim.jl to do the actual minimization.
+
+"""
+
+# unrestricted OLS using optimize (Optim)
 function fminunc(obj, x)
     results = Optim.optimize(obj, x, LBFGS(), 
                             Optim.Options(

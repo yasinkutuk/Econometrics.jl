@@ -1,4 +1,15 @@
 using NLopt
+
+"""
+    xopt, fopt, converged = fmincon(obj, startval)
+
+Minimize the function obj, starting at startval.
+
+fminunc() with no arguments will run an example, execute edit(fminunc,()) to see the code.
+fminunc() uses Optim.jl to do the actual minimization.
+
+"""
+
 function fmincon(obj, startval, R=[], r=[], lb=[], ub=[];iterlim=0)
     # the objective is an anonymous function
     function objective_function(x::Vector{Float64}, grad::Vector{Float64})
