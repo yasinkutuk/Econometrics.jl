@@ -1,7 +1,7 @@
 using PyPlot
 # this script makes predictions, gets RMSEs, and plots the figure
 function AnalyzeNet(savefile, epochs, data, trainsize, noutputs; title="", params="", doplot=false)
-    Y = data[trainsize+1:end,1:noutputs]
+    Y = copy(data[trainsize+1:end,1:noutputs])
     data, m, s = stnorm(data)
     X = data[trainsize+1:end,noutputs+1:end]'
     model = mx.load_checkpoint(savefile, epochs, mx.FeedForward) # load trained model
@@ -12,12 +12,13 @@ function AnalyzeNet(savefile, epochs, data, trainsize, noutputs; title="", param
     fit = fit.*s[:,1:noutputs]
     fit = fit.+m[:,1:noutputs]
     # compute RMSE
-    error = Y - fit
+    error = fit - Y
     bias = mean(error,1)
     mse = mean(error.^2.0,1)
     rmse = sqrt.(mse)
-    rsq = 1.0 .- mse./mean((Y .- mean(Y,1)).^2.0,1)
-    names = ["bias","rmse","mse","R2"]
+    #rsq = 1.0 .- mse./mean((Y .- mean(Y,1)).^2.0,1)
+    rsq = 1.0 .- var(error,1) ./ var(Y,1)
+    names = ["bias","rmse","mse","R²"]
     println()
     println("__________________________________________________")
     println("Neural net indirect inference results")

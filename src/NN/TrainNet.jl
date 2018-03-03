@@ -1,7 +1,7 @@
 using MXNet
 # main training function
 function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, savefile)
-    # prepare data
+    # prepare da ta
     data, mX, sX = stnorm(data)
     Y = data[1:trainsize,1:noutputs]'
     YT = data[trainsize+1:end,1:noutputs]'
@@ -13,7 +13,7 @@ function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, sav
     L3size = layerconfig[3]
     L4size = layerconfig[4]
     Outputsize = size(Y,1)
-    # set up 2 layer MLP with 2 outputs
+    # set up MLP
     data = mx.Variable(:data)
     label = mx.Variable(:label)
     if L4size != 0

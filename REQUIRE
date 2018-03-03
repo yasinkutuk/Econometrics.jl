@@ -2,6 +2,7 @@ julia 0.6
 Compat
 Distributions
 Plots
+PyPlot
 StatPlots
 Distances
 MXNet
