@@ -1,13 +1,13 @@
-""" 
-    samin(obj_fn, x, lb, ub) 
+"""
+    samin(obj_fn, x, lb, ub)
 
 Minimization of a function, over box constraints, via simulated annealing.
 Call samin() for an example, and/or edit(samin,()) to see the code.
 
-History: Bassed on Octave code samin.cc, also by Creel,
+History: Based on Octave code samin.cc, also by Creel,
 which was originally based on Gauss code by E.G. Tsionas. A source
 for the Gauss code is http://web.stanford.edu/~doubleh/otherpapers/sa.txt
-The original Fortran code by W. Goffe is at 
+The original Fortran code by W. Goffe is at
 http://www.degruyter.com/view/j/snde.1996.1.3/snde.1996.1.3.1020/snde.1996.1.3.1020.xml?format=INT
 Tsionas and Goffe agreed to MIT licensing of samin.jl in email
 messages to Creel.
@@ -28,7 +28,7 @@ Goffe, William L. (1996) "SIMANN: A Global Optimization Algorithm
 
 Goffe, et. al. (1994) "Global Optimization of Statistical Functions
   with Simulated Annealing", Journal of Econometrics,
-  V. 60, N. 1/2.    
+  V. 60, N. 1/2.
 
 Usage details: x, obj, convergence, details = samin(f,
                                           x_init,
@@ -51,7 +51,7 @@ REQUIRED
 KEYWORDS
 * nt:  integer: (default = 5) reduce temperature every nt*ns*dim(x_init) evaluations
 * ns:  integer: (default = 5) adjust bounds every ns*dim(x_init) evaluations
-* rt:  (0 < rt <1): (default = 0.5) geometric temperature reduction factor: when temp changes, new temp is t=rt*t 
+* rt:  (0 < rt <1): (default = 0.5) geometric temperature reduction factor: when temp changes, new temp is t=rt*t
 * maxevals:  integer: limit on function evaluations
 * neps:  integer: (default = 5) number of previous best values the final result is compared to
 * functol: (> 0): (default = 1e-8) the required tolerance level for function value
@@ -72,11 +72,12 @@ Returns:
     1 if normal convergence to a point interior to the parameter space
     2 if convergence to point very near bounds of parameter space
       (suggest re-running with looser bounds)
-* details: a px3 matrix. p is the number of times improvements were found.
+* details: a px3+k matrix. p is the number of times improvements were found.
            The columns record information at the time an improvement was found
            * first: cumulative number of function evaluations
            * second: temperature
            * third: function value
+           * fourth to last: current optimal x
 
 """
 
@@ -122,7 +123,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
     f = obj_fn(x)
     fopt = copy(f) # give it something to compare to
     func_evals = 0 # total function evaluations (limited by maxeval)
-    details = [func_evals t fopt]
+    details = [func_evals t fopt xopt']
     bounds = ub - lb
     # check for out-of-bounds starting values
     for i = 1:n
@@ -130,7 +131,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
             @printf("samin: initial parameter %d out of bounds\n", i)
             converge = 0
             return xopt, fopt, converge, details
-        end 
+        end
     end
     # main loop, first increase temperature until parameter space covered, then reduce until convergence
     while (converge==0)
@@ -172,7 +173,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                                 xopt = copy(xp)
                                 fopt = copy(fp)
                                 nnew +=1
-                                details = [details; [func_evals t fp]]
+                                details = [details; [func_evals t fp xp']]
                             end
                         # If the point is higher, use the Metropolis criteria to decide on
                         # acceptance or rejection.
@@ -223,7 +224,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                     end
                 else
                     test += 1 # make sure coverage check passes for the fixed parameters
-                end    
+                end
             end
             nacp = 0 # set back to zero
             # check if we cover parameter space, if we have yet to do so
@@ -250,7 +251,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                 end
             end
             println()
-        end        
+        end
         # Check for convergence, if we have covered the parameter space
         if (coverage_ok)
             # last value close enough to last neps values?
@@ -269,7 +270,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                         break
                     else
                         converge = 1
-                    end    
+                    end
                 end
             end
             # check if optimal point is near boundary of parameter space, and change message if so
@@ -295,7 +296,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                     println("       parameter      search width")
                     for i=1:n
                         @printf("%16.5f  %16.5f \n", xopt[i], bounds[i])
-                    end    
+                    end
                     println("================================================")
                 end
             end
@@ -304,14 +305,14 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
             t *= rt
             for i = neps:-1:2
                 fstar[i] = fstar[i-1]
-            end    
+            end
             f = copy(fopt)
             x = copy(xopt)
         else  # coverage not ok - increase temperature quickly to expand search area
             t *= 10.0
             for i = neps:-1:2
                 fstar[i] = fstar[i-1]
-            end    
+            end
             f = fopt
             x = xopt
         end

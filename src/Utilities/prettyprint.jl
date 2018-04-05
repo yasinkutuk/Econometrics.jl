@@ -25,5 +25,6 @@ function prettyprint(a::Array{Float64}, cnames="", rnames="",digits=12, decimals
             @printf("%12.5f",(a[i,j]))
         end
         @printf("\n")
-    end    
+    end
+    return 0
 end  
