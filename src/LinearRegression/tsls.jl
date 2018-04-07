@@ -39,7 +39,7 @@ function tsls(y, x, z; names="", vc="white", silent=false)
         println("******************************************")
         @printf("  2SLS estimation, %d observations\n", n)
         @printf("  R^2: %f   Sig^2: %f\n", rsq, sigsq)
-        p = 2.0 - 2.0*cdf(TDist(n-k),abs.(t))
+        p = 2.0 - 2.0*cdf.(TDist(n-k),abs.(t))
         results = [b seb t p]
         if vc=="white"
             println("  White's covariance estimator")
