@@ -108,6 +108,14 @@ function samin()
     println("optimum on bounds of parameter space")
     x = 0.5 .+ 0.5*rand(k,1)
     xopt = samin(sse, x, lb, ub, verbosity=1)
+    # impose a constraint
+    println("constraint")
+    lb = -ones(k,1)
+    ub = -lb
+    x[1] = 0.5
+    lb[1] = 0.5
+    ub[1] = 0.5
+    @time xopt = samin(sse, x, lb, ub, verbosity=1)
 end
 
 function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, functol=1e-8, paramtol=1e-5, verbosity=1, coverage_ok=0)
