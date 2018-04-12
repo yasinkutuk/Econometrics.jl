@@ -37,13 +37,19 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
     se = sqrt.(diag(V))
     t = thetahat ./ se
     p = 2.0 .- 2.0*cdf.(TDist(n-k),abs.(t))
-    if converged == true convergence="Normal convergence"
+    if converged == true convergence="Normal"
     else convergence="No convergence"
     end
     PrintDivider()
     if title !="" println(title) end
-    println("GMM Estimation Results")
-    println("BFGS convergence: ", convergence)
+    print("GMM Estimation Results    BFGS convergence: ")
+    if convergence=="Normal"
+        print_with_color(:green, convergence)
+        println()
+    else
+        print_with_color(:red, convergence)
+        println()
+    end
     println("Observations: ", n)
     println("Hansen-Sargan statistic: ", round(n*objvalue,5))
     if g > k
