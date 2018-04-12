@@ -21,12 +21,12 @@ function mle(model, θ, vc=1)
     I = cov(scorecontrib)
     J = Calculus.hessian(avg_obj, vec(thetahat), :central)
     Jinv = inv(J)
-    V = Jinv*I*Jinv/n # sandwich form is preferred
     if vc==2
-        V = -Jinv/n      # other possibilities
-    end
-    if vc==3
+        V = Jinv/n      # other possibilities
+    elseif vc==3
         V = inv(I)/n
+    else
+        V= Jinv*I*Jinv/n # sandwich form is preferred
     end
     return thetahat, objvalue, V, converged
 end

@@ -33,15 +33,27 @@ function mleresults(model, θ, title="", names=""; vc=1)
     se = sqrt.(diag(V))
     t = thetahat ./ se
     p = 2.0 .- 2.0*cdf.(TDist(n-k),abs.(t))
-    if converged == true convergence="Normal convergence"
+    if converged == true convergence="Normal"
     else convergence="No convergence"
     end
     PrintDivider()
     if title !="" println(title) end
-    println("MLE Estimation Results")
-    println("BFGS convergence: ", convergence)
-    println("Average Log-L: ", round(objvalue,5))
-    println("Observations: ", n)
+    print("MLE Estimation Results    BFGS convergence: ")
+    if convergence=="Normal"
+        print_with_color(:green, convergence)
+        println()
+    else
+        print_with_color(:red, convergence)
+        println()
+    end    
+    println("Average Log-L: ", round(objvalue,5), "   Observations: ", n)
+    if vc==1
+        println("Sandwich form covariance estimator")
+    elseif vc==2
+        println("Inverse Hessian form covariance estimator")
+    else
+        println("OPG form covariance estimator")
+    end
     a =[thetahat se t p]
     println("")
     PrintEstimationResults(a, names)
