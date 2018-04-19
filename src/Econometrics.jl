@@ -25,8 +25,8 @@ include("NP/npreg.jl")
 include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
 include("NP/NeweyWest.jl")
-include("NN/TrainNet.jl")
-include("NN/AnalyzeNet.jl")
+#include("NN/TrainNet.jl")
+#include("NN/AnalyzeNet.jl")
 # optimization
 include("Optimization/samin.jl")
 include("Optimization/fminunc.jl")
@@ -46,7 +46,7 @@ export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
 export npreg, kernelweights
 export npdensity
-export TrainNet, AnalyzeNet
+#export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
 export mle, mleresults, logit, poisson, normal
 export gmm, gmmresults

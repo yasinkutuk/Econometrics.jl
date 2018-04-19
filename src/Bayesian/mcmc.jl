@@ -41,7 +41,7 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, report=true::Boo
     mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report)
 end    
 
-
+# the main loop
 function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
     reportevery = Int((reps+burnin)/100)
     lnLθ = lnL(θ)

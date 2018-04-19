@@ -5,7 +5,7 @@ Plots
 PyPlot
 StatPlots
 Distances
-MXNet
+#MXNet
 Optim
 NLopt
 Glob
