@@ -12,7 +12,7 @@ include("Utilities/lags.jl")
 include("Utilities/vech.jl")
 include("Utilities/PrintDivider.jl")
 include("Utilities/PrintEstimationResults.jl")
-include("Utilities/clc.jl")
+#include("Utilities/clc.jl") # problematic on Windows, for some reason
 # linear regression
 include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
@@ -40,7 +40,8 @@ include("ML/Likelihoods/normal.jl")
 # GMM
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
-export stnorm, prettyprint, sortbyc, dstats, lag, lags, vech, clc
+export stnorm, prettyprint, sortbyc, dstats, lag, lags, vech
+#export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
