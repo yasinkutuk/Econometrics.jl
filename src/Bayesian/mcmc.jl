@@ -42,14 +42,14 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, report=true::Boo
 end    
 
 # the main loop
-function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
+function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity::Function, report=true::Bool)
     reportevery = Int((reps+burnin)/100)
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
     naccept = zeros(size(θ,1))
     for rep = 1:reps+burnin
         θᵗ = Proposal(θ) # new trial value
-        i = .!(θᵗ .== θ) # find which changed
+        changed = .!(θᵗ .== θ) # find which changed
         lnLθᵗ = lnL(θᵗ)
         # MH accept/reject
         accept = rand() < 
@@ -60,8 +60,8 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=tr
             θ = copy(θᵗ)
             lnLθ = lnLθᵗ 
         end
-        naccept[i] += accept
-        if (mod(rep,reportevery)==0 & report)
+        naccept[changed] += accept
+        if (mod(rep,reportevery)==0 && report)
             println(θ)
             println("acceptance rate by parameter: ", naccept/reportevery)
             naccept = naccept - naccept
