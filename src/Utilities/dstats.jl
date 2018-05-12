@@ -1,5 +1,5 @@
 using StatsBase
-function dstats(x, rnames="")
+function dstats(x, rnames="";short=false)
     k = size(x,2)
     if rnames==""
         rnames = 1:k
@@ -17,11 +17,17 @@ function dstats(x, rnames="")
     mx = maximum(x,1)
     q05 = zeros(k)
     q95 = zeros(k)
-    for i = 1:size(x,2) q05[i] = quantile(x[:,i], 0.05) end
-    for i = 1:size(x,2) q95[i] = quantile(x[:,i], 0.95) end
-    cnames = ["  mean", "  std", "skew", "kurt", "min", "max", "q05", "q95"]
-    stats = [m' s' sk' k' mn' mx' q05' q95'] 
-    prettyprint(stats, cnames, rnames);
+    if short == false
+        for i = 1:size(x,2) q05[i] = quantile(x[:,i], 0.05) end
+        for i = 1:size(x,2) q95[i] = quantile(x[:,i], 0.95) end
+        cnames = ["  mean", "  std", "skew", "kurt", "min", "max", "q05", "q95"]
+        stats = [m' s' sk' k' mn' mx' q05' q95'] 
+        prettyprint(stats, cnames, rnames)
+    else
+        cnames = ["  mean", "  std", "skew", "kurt", "min", "max"]
+        stats = [m' s' sk' k' mn' mx'] 
+        prettyprint(stats, cnames, rnames)
+    end
     return stats
 end    
 

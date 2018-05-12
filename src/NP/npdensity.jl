@@ -2,7 +2,7 @@
 using KernelDensity, Plots
 
 function npdensity(z)
-    pyplot()
+    #pyplot()
     n = size(z,2)
     p = zeros(n)
     for i = 1:n
@@ -23,4 +23,4 @@ function npdensity(z)
         end
     end
     return p
-end 
+end

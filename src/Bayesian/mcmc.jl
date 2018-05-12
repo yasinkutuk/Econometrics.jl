@@ -43,7 +43,7 @@ end
 
 # the main loop
 function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
-    reportevery = Int((reps+burnin)/100)
+    reportevery = Int((reps+burnin)/10)
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
     naccept = zeros(size(θ,1))
@@ -63,7 +63,7 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=tr
         naccept[i] += accept
         if (mod(rep,reportevery)==0 & report)
             println(θ)
-            println("acceptance rate by parameter: ", naccept/reportevery)
+            println("acceptance rate by parameter: ", round.(naccept/reportevery,3))
             naccept = naccept - naccept
         end    
         if rep > burnin
