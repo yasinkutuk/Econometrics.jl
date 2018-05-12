@@ -41,13 +41,8 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, report=true::Boo
 end    
 
 # the main loop
-<<<<<<< HEAD
-function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
-    reportevery = Int((reps+burnin)/10)
-=======
 function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity::Function, report=true::Bool)
-    reportevery = Int((reps+burnin)/100)
->>>>>>> ce5177d4a34cfab9bb7353644afccf01b43fed2e
+    reportevery = Int((reps+burnin)/10)
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
     naccept = zeros(size(θ,1))
