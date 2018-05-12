@@ -15,7 +15,6 @@
 
 """
 
-
 function mcmc()
     println("mcmc(), called with no arguments, runs a simple example")
     println("execute edit(mcmc,()) to see the code")
@@ -42,14 +41,19 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, report=true::Boo
 end    
 
 # the main loop
+<<<<<<< HEAD
 function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=true)
     reportevery = Int((reps+burnin)/10)
+=======
+function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity::Function, report=true::Bool)
+    reportevery = Int((reps+burnin)/100)
+>>>>>>> ce5177d4a34cfab9bb7353644afccf01b43fed2e
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
     naccept = zeros(size(θ,1))
     for rep = 1:reps+burnin
         θᵗ = Proposal(θ) # new trial value
-        i = .!(θᵗ .== θ) # find which changed
+        changed = .!(θᵗ .== θ) # find which changed
         lnLθᵗ = lnL(θᵗ)
         # MH accept/reject
         accept = rand() < 
@@ -60,8 +64,8 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal, ProposalDensity, report=tr
             θ = copy(θᵗ)
             lnLθ = lnLθᵗ 
         end
-        naccept[i] += accept
-        if (mod(rep,reportevery)==0 & report)
+        naccept[changed] += accept
+        if (mod(rep,reportevery)==0 && report)
             println(θ)
             println("acceptance rate by parameter: ", round.(naccept/reportevery,3))
             naccept = naccept - naccept
