@@ -15,7 +15,6 @@
 
 """
 
-
 function mcmc()
     println("mcmc(), called with no arguments, runs a simple example")
     println("execute edit(mcmc,()) to see the code")
@@ -43,7 +42,7 @@ end
 
 # the main loop
 function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity::Function, report=true::Bool)
-    reportevery = Int((reps+burnin)/100)
+    reportevery = Int((reps+burnin)/10)
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
     naccept = zeros(size(θ,1))
@@ -62,8 +61,8 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity:
         end
         naccept[changed] += accept
         if (mod(rep,reportevery)==0 && report)
-            println(θ)
-            println("acceptance rate by parameter: ", naccept/reportevery)
+            println("current parameters: ", round.(θ,3))
+            println("  acceptance rates: ", round.(naccept/reportevery,3))
             naccept = naccept - naccept
         end    
         if rep > burnin
