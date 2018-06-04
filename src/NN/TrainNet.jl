@@ -1,7 +1,7 @@
 using MXNet
 # main training function
 function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, savefile)
-    # prepare da ta
+    # prepare data
     data, mX, sX = stnorm(data)
     Y = data[1:trainsize,1:noutputs]'
     YT = data[trainsize+1:end,1:noutputs]'
