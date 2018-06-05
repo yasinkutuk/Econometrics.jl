@@ -4,6 +4,7 @@ module Econometrics
 
 # Utilities
 include("Utilities/stnorm.jl")
+include("Utilities/trim.jl")
 include("Utilities/prettyprint.jl")
 include("Utilities/sortbyc.jl")
 include("Utilities/dstats.jl")
@@ -22,6 +23,7 @@ include("LinearRegression/TestStatistics.jl")
 include("Bayesian/mcmc.jl")
 # nonparametrics
 include("NP/npreg.jl")
+include("NP/bootstrap.jl")
 include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
 include("NP/NeweyWest.jl")
@@ -40,12 +42,12 @@ include("ML/Likelihoods/normal.jl")
 # GMM
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
-export stnorm, prettyprint, sortbyc, dstats, lag, lags, vech
+export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
 #export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
-export npreg, kernelweights
+export npreg, kernelweights, bootstrap
 export npdensity
 export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
