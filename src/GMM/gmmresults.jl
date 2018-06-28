@@ -51,9 +51,9 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
         println()
     end
     println("Observations: ", n)
-    println("Hansen-Sargan statistic: ", round(n*objvalue,5))
+    println("Hansen-Sargan statistic: ", round(n*objvalue, digits=5))
     if g > k
-        println("Hansen-Sargan p-value: ", round(1.0 - cdf(Chisq(g-k),n*objvalue),5))
+        println("Hansen-Sargan p-value: ", round(1.0 - cdf(Chisq(g-k),n*objvalue), digits=5))
     end    
     a =[thetahat se t p]
     println("")

@@ -1,4 +1,4 @@
 function vech(x)
     a = triu(x)
-    a = a[find(a)]
+    a = a[findall(a)]
 end    

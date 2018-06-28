@@ -6,7 +6,7 @@ bandwidth = 0.07
 n = 100000
 neval = 100
 x = rand(n,k)*pi*2.0
-xeval = [pi*ones(neval,k-1) linspace(pi/2.,pi*1.5,neval)]
+xeval = [pi*ones(neval,k-1) range(pi/2., stop=pi*1.5, length=neval)]
 y = cos.(sum(x,2)) + cos.(2. * sum(x,2)) + 0.5*randn(n,1)
 ytrue = cos.(sum(xeval,2)) + cos.(2. * sum(xeval,2))
 weights = kernelweights(x, xeval, bandwidth, true, "gaussian", 200)

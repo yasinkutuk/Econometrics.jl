@@ -242,8 +242,8 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
         # intermediate output, if desired
         if(verbosity >= 2)
             println("samin: intermediate results before next temperature change")
-            println("temperature: ", round(t,5))
-            println("current best function value: ", round(fopt,5))
+            println("temperature: ", round(t, digits=5))
+            println("current best function value: ", round(fopt, digits=5))
             println("total evaluations so far: ", func_evals)
             println("total moves since last temperature reduction: ", nup + ndown + nrej)
             println("downhill: ", nup)
