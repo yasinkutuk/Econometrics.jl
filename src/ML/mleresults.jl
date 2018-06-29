@@ -46,7 +46,7 @@ function mleresults(model, θ, title="", names=""; vc=1)
         print_with_color(:red, convergence)
         println()
     end    
-    println("Average Log-L: ", round(objvalue,5), "   Observations: ", n)
+    println("Average Log-L: ", round(objvalue, digits=5), "   Observations: ", n)
     if vc==1
         println("Sandwich form covariance estimator")
     elseif vc==2
