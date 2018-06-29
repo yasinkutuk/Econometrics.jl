@@ -1,3 +1,5 @@
+using StatsFuns, LinearAlgebra
+
 """
     ols(y,x)
 
@@ -6,7 +8,6 @@ Compute the ordinary least squares regresssion coefficients, and report results.
 ols() with no arguments will run an example, execute edit(ols,()) to see the code.
 
 """
-
 function ols()
     y = rand(100,1)
     x = [ones(100,1) rand(100,3)]
@@ -37,12 +38,12 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
     if R !=[]
         q = size(R,1)
         P_inv = inv(R*xx_inv*R')
-        b = b - xx_inv*R'*P_inv*(R*b-r)
+        b = b .- xx_inv*R'*P_inv*(R*b.-r)
         e = y-x*b;
         ess = (e' * e)[1,1]
         df = n-k-q
         sigsq = ess/df
-        A = eye(k) - xx_inv*R'*P_inv*R;  # the matrix relating b and b_r
+        A = Matrix{Float64}(I, k, k) .- xx_inv*R'*P_inv*R;  # the matrix relating b and b_r
     end
     # Ordinary or het. consistent variance estimate
     if vc=="white"
@@ -63,7 +64,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
     seb = sqrt.(diag(varb))
     seb = seb.*(seb.>1e-16) # round off to zero when there are restrictions
     t = b ./ seb
-    tss = y - mean(y)
+    tss = y .- mean(y)
     tss = (tss'*tss)[1,1]
     rsq = (1.0 - ess / tss)
     if !silent
@@ -75,7 +76,7 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
             @printf("  Restricted LS estimation, %d observations\n", n)
         end
         @printf("  R²: %f   σ²: %f\n", rsq, sigsq)
-        p = 2.0 - 2.0*cdf.(TDist(df),abs.(t))
+        p = 2.0 .- 2.0*tdistcdf.(df, abs.(t))
         results = [b seb t p]
         if vc=="white"
             println("  White's covariance estimator")

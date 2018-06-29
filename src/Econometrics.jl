@@ -14,10 +14,11 @@ include("Utilities/vech.jl")
 include("Utilities/PrintDivider.jl")
 include("Utilities/PrintEstimationResults.jl")
 #include("Utilities/clc.jl") # problematic on Windows, for some reason
-#=
+
 # linear regression
 include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
+#=
 include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
 =#
@@ -29,7 +30,9 @@ include("NP/npreg.jl")
 include("NP/bootstrap.jl")
 include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
+=#
 include("NP/NeweyWest.jl")
+#=
 #include("NN/TrainNet.jl")
 #include("NN/AnalyzeNet.jl")
 =#
@@ -55,7 +58,8 @@ include("GMM/gmmresults.jl")
 export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
 #export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
-#export lsfit, ols, tsls, TestStatistics, NeweyWest
+export lsfit, ols#, tsls, TestStatistics, 
+export NeweyWest
 #export mcmc
 #export npreg, kernelweights, bootstrap
 #export npdensity

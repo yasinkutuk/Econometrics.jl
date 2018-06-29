@@ -24,7 +24,6 @@
 # 		 LR: the likelihood ratio statistic
 using Distributions
 function TestStatistics(y, x, R, r)
-
     n,k = size(x)
     q = size(R,1)
 	b = x\y

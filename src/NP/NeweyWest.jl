@@ -8,7 +8,7 @@ function NeweyWest(Z,nlags=0)
 =#
     n,k = size(Z)
     # de-mean the variables
-    Z = Z .- mean(Z,1)
+    Z = Z .- mean(Z,dims=1)
     omegahat = Z'*Z/n # sample variance
     # automatic lags?
     if nlags == 0
