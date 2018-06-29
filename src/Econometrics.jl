@@ -18,10 +18,8 @@ include("Utilities/PrintEstimationResults.jl")
 # linear regression
 include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
-#=
 include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
-=#
 #=
 # Bayesian
 include("Bayesian/mcmc.jl")
@@ -58,8 +56,7 @@ include("GMM/gmmresults.jl")
 export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
 #export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
-export lsfit, ols#, tsls, TestStatistics, 
-export NeweyWest
+export lsfit, ols, tsls, TestStatistics, NeweyWest
 #export mcmc
 #export npreg, kernelweights, bootstrap
 #export npdensity

@@ -22,14 +22,14 @@
 # 		 W: the Wald statistic
 # 		 S: the score statistic
 # 		 LR: the likelihood ratio statistic
-using Distributions
+using StatsFuns
 function TestStatistics(y, x, R, r)
     n,k = size(x)
     q = size(R,1)
 	b = x\y
 	xx_inv = inv(x'*x)
 	P_inv = inv(R*xx_inv*R')
-	b_r = b - xx_inv*R'*P_inv*(R*b-r)
+	b_r = b .- xx_inv*R'*P_inv*(R*b.-r)
     e = y - x*b
     ess = (e'*e)[1,1]
     e_r = y - x*b_r
@@ -40,7 +40,7 @@ function TestStatistics(y, x, R, r)
     # F-test
     F = (ess_r-ess)/(q*sigsqhat_ols)
     # Wald test (uses unrestricted model's est. of sig^2
-    W = (R*b-r)'*P_inv*(R*b-r)/sigsqhat_mle
+    W = (R*b.-r)'*P_inv*(R*b.-r)/sigsqhat_mle
     # Score test (uses restricted model's est. of sig^2 
     P_x = x * xx_inv * x'
     S = e_r' * P_x * e_r/(sigsqhat_mle_r)
@@ -49,7 +49,7 @@ function TestStatistics(y, x, R, r)
     lnl_r = -n/2*log(2*pi) - n/2*log(sigsqhat_mle_r) - e_r' * e_r/(2*sigsqhat_mle_r)
     LR = 2.0*(lnl-lnl_r)
 	tests = [q*F[1], W[1], LR[1], S[1]]
-	pvalues = ccdf(Chisq(q), tests)
+	pvalues = chisqccdf.(tests,q)
     tests = [tests pvalues]
 	TESTS = ["qF","Wald","LR","Score"]
 	labels = ["Value","p-value"]

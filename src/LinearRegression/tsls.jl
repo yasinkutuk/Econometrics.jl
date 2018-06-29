@@ -1,10 +1,11 @@
+using StatsFuns, LinearAlgebra
+
 """
     tsls(y, x, z)
 
     Two stage least squares regression of y on x, using instruments z
 
 """
-
 function tsls(y, x, z; names="", vc="white", silent=false)
     n,k = size(x)
     if names==""
@@ -31,15 +32,15 @@ function tsls(y, x, z; names="", vc="white", silent=false)
     end
     seb = sqrt.(diag(varb))
     t = b ./ seb
-    tss = y - mean(y)
+    tss = y .- mean(y)
     tss = (tss'*tss)[1,1]
     rsq = (1.0 - ess / tss)
     labels = ["coef", "se", "t", "p"]
     if !silent
-        println("******************************************")
+        PrintDivider()
         @printf("  2SLS estimation, %d observations\n", n)
-        @printf("  R^2: %f   Sig^2: %f\n", rsq, sigsq)
-        p = 2.0 - 2.0*cdf.(TDist(n-k),abs.(t))
+        @printf("  R²: %f   σ²: %f\n", rsq, sigsq)
+        p = 2.0 .- 2.0*tdistcdf.(n-k, abs.(t))
         results = [b seb t p]
         if vc=="white"
             println("  White's covariance estimator")
@@ -49,8 +50,7 @@ function tsls(y, x, z; names="", vc="white", silent=false)
         end
         println()
         prettyprint(results, labels, names)
-        println("******************************************")
+        PrintDivider()
     end
     return b, varb, e, ess, rsq
-    ""
 end
