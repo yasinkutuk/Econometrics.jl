@@ -1,7 +1,7 @@
 # Econometrics.jl
 Functions for econometrics, and supporting utilities. Has maximum likelihood, fminunc and fmincon replacements, some nonparametrics, some utilities, neural nets, etc.
 
-THIS IS CURRENTLY IN TRANSITION TO BE JULIA 0./COMPATIBLE, AND PARTS MAY BE BROKEN. GET RELEASE 1.0 for a working v0.6 compatible version.
+THIS IS CURRENTLY IN TRANSITION TO BE JULIA 0.7 / 1.0 COMPATIBLE, AND PARTS MAY BE BROKEN. GET RELEASE 1.0 for a working v0.6 compatible version.
 
 This is used in the graduate econometrics lecture notes at https://github.com/mcreel/Econometrics
 
