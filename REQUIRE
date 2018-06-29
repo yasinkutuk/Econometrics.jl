@@ -1,13 +1,13 @@
 julia 0.7
-Compat
-Distributions
-Plots
-PyPlot
-StatPlots
-Distances
+#Compat
+#Distributions
+#Plots
+#PyPlot
+#StatPlots
+#Distances
 #MXNet
-Optim
-NLopt
-Glob
-KernelDensity
-Calculus
+#Optim
+#NLopt
+#Glob
+#KernelDensity
+#Calculus
