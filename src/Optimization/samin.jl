@@ -1,3 +1,5 @@
+using Printf
+
 """
     samin(obj_fn, x, lb, ub)
 
@@ -80,7 +82,6 @@ Returns:
            * fourth to last: current optimal x
 
 """
-
 function samin()
     println("samin(), with no arguments, runs an example of usage")
     println("execute edit(samin,()) to see the example")
@@ -200,9 +201,10 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                         # If maxevals exceeded, terminate the algorithm
                         if(func_evals >= maxevals)
                             if(verbosity >= 1)
-                                println("================================================")
+                                PrintDivider()
                                 println("SAMIN results")
-                                println("NO CONVERGENCE: MAXEVALS exceeded")
+                                printstyled(color=:red, "==> NO CONVERGENCE <== MAXEVALS exceeded")
+                                println()
                                 @printf("\n     Obj. value:  %16.5f\n\n", fopt)
                                 if(verbosity >=2)
                                     println("       parameter      search width")
@@ -210,7 +212,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                                         @printf("%16.5f  %16.5f \n", xopt[i], bounds[i])
                                     end
                                 end
-                                println("================================================")
+                                PrintDivider()
                             end
                             converge = 0
                             return xopt, fopt, converge, details
@@ -288,14 +290,16 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
             # Like to see the final results?
             if (converge > 0)
                 if (verbosity >= 1)
-                    println("================================================")
+                    PrintDivider()
                     println("SAMIN results")
                     if (converge == 1)
-                        println("==> Normal convergence <==")
+                        printstyled(color=:green, "==> Normal convergence <==")
+                        println()
                     end
                     if (converge == 2)
-                        println("==> WARNING <==: Last point satisfies convergence criteria,")
-                        println("but is near boundary of parameter space.")
+                        printstyled(color=:yellow, "==> WARNING <==: Last point satisfies convergence criteria,")
+                        printstyled(color=:yellow, " but is near boundary of parameter space.")
+                        println()
                         println(lnobds, " out of  ", (nup+ndown+nrej), " evaluations were out of bounds in the last round.")
                         println("Expand bounds and re-run, unless this is a constrained minimization.")
                     end
@@ -305,7 +309,7 @@ function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, func
                     for i=1:n
                         @printf("%16.5f  %16.5f \n", xopt[i], bounds[i])
                     end
-                    println("================================================")
+                    PrintDivider()
                 end
             end
             # Reduce temperature, record current function value in the

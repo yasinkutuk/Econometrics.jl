@@ -1,6 +1,7 @@
 __precompile__()
 
 module Econometrics
+using LinearAlgebra, StatsBase
 
 # Utilities
 include("Utilities/stnorm.jl")
@@ -20,9 +21,11 @@ include("LinearRegression/lsfit.jl")
 include("LinearRegression/ols.jl")
 include("LinearRegression/tsls.jl")
 include("LinearRegression/TestStatistics.jl")
-#=
+
 # Bayesian
 include("Bayesian/mcmc.jl")
+
+#=
 # nonparametrics
 include("NP/npreg.jl")
 include("NP/bootstrap.jl")
@@ -34,12 +37,12 @@ include("NP/NeweyWest.jl")
 #include("NN/TrainNet.jl")
 #include("NN/AnalyzeNet.jl")
 =#
-#=
+
 # optimization
 include("Optimization/samin.jl")
-include("Optimization/fminunc.jl")
-include("Optimization/fmincon.jl")
-=#
+#include("Optimization/fminunc.jl")
+#include("Optimization/fmincon.jl")
+
 #=
 # MLE
 include("ML/mle.jl")
@@ -57,11 +60,11 @@ export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
 #export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
-#export mcmc
+export mcmc
 #export npreg, kernelweights, bootstrap
 #export npdensity
 #export TrainNet, AnalyzeNet
-#export samin, fminunc, fmincon
+export samin#, fminunc, fmincon
 #export mle, mleresults, logit, poisson, normal
 #export gmm, gmmresults
 end
