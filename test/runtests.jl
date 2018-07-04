@@ -23,8 +23,10 @@ function main()
     @test fopt ≈ 2.0 atol=1e-5
     end
     # npreg
-    #include("../examples/npreg_example.jl");
-    #yhat[1,1] ≈ -0.8108308248103517
+    @testset "npreg" begin
+        yhat = npreg();
+        @test yhat[1,1] ≈ -0.8108308248103517
+    end    
 end
 main()
 

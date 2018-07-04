@@ -1,7 +1,7 @@
 __precompile__()
 
 module Econometrics
-using LinearAlgebra, StatsBase
+using LinearAlgebra, StatsBase, Statistics
 
 # Utilities
 include("Utilities/stnorm.jl")
@@ -25,14 +25,13 @@ include("LinearRegression/TestStatistics.jl")
 # Bayesian
 include("Bayesian/mcmc.jl")
 
-#=
 # nonparametrics
 include("NP/npreg.jl")
-include("NP/bootstrap.jl")
-include("NP/npdensity.jl")
+#include("NP/bootstrap.jl")
+#include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
-=#
 include("NP/NeweyWest.jl")
+
 #=
 #include("NN/TrainNet.jl")
 #include("NN/AnalyzeNet.jl")
@@ -61,7 +60,7 @@ export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
-#export npreg, kernelweights, bootstrap
+export npreg, kernelweights#, bootstrap
 #export npdensity
 #export TrainNet, AnalyzeNet
 export samin#, fminunc, fmincon

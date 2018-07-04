@@ -1,13 +1,12 @@
 julia 0.7
 StatsBase
 StatsFuns
-DelimitedFiles
 #Compat
 #Distributions
 #Plots
 #PyPlot
 #StatPlots
-#Distances
+Distances
 #MXNet
 #Optim
 #NLopt
