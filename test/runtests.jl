@@ -9,15 +9,7 @@ function main()
         @test b[1,1] ≈ 0.07655377367377458
     end    
     # samin
-    junk=2. # shows use of obj. fun. as a closure
-    function sse(x)
-        objvalue = junk + sum(x.*x)
-    end
-    k = 5
-    x = rand(k,1)
-    lb = -ones(k,1)
-    ub = -lb
-    xopt, fopt, junk, junk = samin(sse, x, lb, ub, verbosity=0)
+    xopt, fopt = samin()
     @testset "samin" begin
     @test xopt[1] ≈ 0.0 atol=1e-5
     @test fopt ≈ 2.0 atol=1e-5

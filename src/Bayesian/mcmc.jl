@@ -20,15 +20,15 @@ function mcmc()
     # sample is from exponential, prior is lognormal, proposal is random walk lognormal
     y = rand(Exponential(3.0),30)
     # set prior, likelihood and proposal
-    Prior = θ -> pdf(LogNormal(1.0,1.0), θ) 
-    lnL = θ -> sum(logpdf.(Exponential(θ),y))
+    Prior = θ -> pdf.(Ref(LogNormal(1.0,1.0)), θ)
+    lnL = θ -> sum(logpdf.(Ref(Exponential(θ)), y))
     tuning = 0.5
-    Proposal = θ -> rand(LogNormal(log(θ),tuning)) 
+    Proposal = θ -> rand(LogNormal(log(θ),tuning))
     # get the chain, plot posterior, and descriptive stats
-    chain = mcmc(1.0, 100000, 10000, Prior, lnL, Proposal) # start value, chain length, and burnin 
-    p = npdensity(chain[:,1]) # nonparametric plot of posterior density 
-    plot!(p, title="posterior density, simple MCMC example: true value = 3.0") # add a title
-    display(p)
+    chain = mcmc(1.0, 100000, 10000, Prior, lnL, Proposal, true) # start value, chain length, and burnin 
+    #p = npdensity(chain[:,1]) # nonparametric plot of posterior density 
+    #plot!(p, title="posterior density, simple MCMC example: true value = 3.0") # add a title
+    #display(p)
     dstats(chain)
     return
 end
@@ -44,10 +44,10 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity:
     reportevery = Int((reps+burnin)/10)
     lnLθ = lnL(θ)
     chain = zeros(reps, size(θ,1)+1)
-    naccept = zeros(size(θ,1))
+    naccept = zeros(size(θ))
     for rep = 1:reps+burnin
         θᵗ = Proposal(θ) # new trial value
-        changed = .!(θᵗ .== θ) # find which changed
+        changed = Int.(.!(θᵗ .== θ)) # find which changed
         lnLθᵗ = lnL(θᵗ)
         # MH accept/reject
         accept = rand() < 
@@ -58,7 +58,7 @@ function mcmc(θ, reps, burnin, Prior, lnL, Proposal::Function, ProposalDensity:
             θ = copy(θᵗ)
             lnLθ = lnLθᵗ 
         end
-        naccept[changed] .+= accept
+        naccept = naccept .+ changed .* Int.(accept)
         if (mod(rep,reportevery)==0 && report)
             println("current parameters: ", round.(θ,digits=3))
             println("  acceptance rates: ", round.(naccept/reportevery,digits=3))

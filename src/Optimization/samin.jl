@@ -1,4 +1,4 @@
-using Printf
+using Printf, Random
 
 """
     samin(obj_fn, x, lb, ub)
@@ -85,18 +85,18 @@ Returns:
 function samin()
     println("samin(), with no arguments, runs an example of usage")
     println("execute edit(samin,()) to see the example")
-
     junk=2. # shows use of obj. fun. as a closure
     function sse(x)
         objvalue = junk + sum(x.*x)
     end
     k = 5
+    srand(1)
     x = rand(k,1)
     lb = -ones(k,1)
     ub = -lb
     # converge to global opt, see final parameters
     println("normal convergence, see only final results")
-    @time xopt = samin(sse, x, lb, ub, verbosity=1)
+    @time xtest, ftest, junk = samin(sse, x, lb, ub, verbosity=1)
     # no convergence within iteration limit
     println("no convergence within iter limit")
     @time xopt = samin(sse, x, lb, ub, maxevals=10, verbosity=1)
@@ -117,6 +117,7 @@ function samin()
     lb[1] = 0.5
     ub[1] = 0.5
     @time xopt = samin(sse, x, lb, ub, verbosity=1)
+    return xtest, ftest
 end
 
 function samin(obj_fn, x, lb, ub; nt=5, ns=5, rt=0.5, maxevals=1e6, neps=5, functol=1e-8, paramtol=1e-5, verbosity=1, coverage_ok=0)
