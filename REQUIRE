@@ -9,7 +9,9 @@ Plots
 Distances
 #MXNet
 #Optim
-#NLopt
+NLopt
 #Glob
 #KernelDensity
-#Calculus
+#FFTW
+SpecialFunctions
+Calculus

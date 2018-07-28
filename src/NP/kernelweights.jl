@@ -17,7 +17,7 @@ function kernelweights(x, xeval, bandwidth, prewhiten=true, kernel="gaussian", n
     # Gaussian product kernel, add others if desired
     if kernel=="gaussian"
         for i=1:neval
-            z = (x.-xeval[[i],:])/bandwidth
+            z = (x.-xeval[i:i,:])/bandwidth
             weights[:,i] = exp.(-0.5*sum(z.*z,dims=2))
         end
     end

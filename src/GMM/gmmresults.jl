@@ -1,17 +1,18 @@
 function gmmresults()
     # example of GMM: draws from N(0,1)
-    y = randn(100,1)
+    y = randn(1000,1)
     # 3 moment conditions
-    moments = theta -> [y-theta[1] (y.^2.0).-theta[2] (y.-theta[1]).^3.0]
+    moments = theta -> [y.-theta[1] (y.^2.0).-theta[2] (y.-theta[1]).^3.0]
     # first round consistent
-    W = eye(3)
+    W = Matrix{Float64}(I,3,3)
     theta = [0.0, 1.0]
     thetahat, objvalue, D, ms, converged = gmm(moments, theta, W)
     # second round efficient
-    W = inv(NeweyWest(ms))
+    W = inv(cov(ms))
     gmmresults(moments, thetahat, W, "GMM example, two step");
     # CUE
     gmmresults(moments, thetahat, "", "GMM example, CUE");
+    return
 end    
 
 function gmmresults(moments, theta, weight, title="", names="", efficient=true)
@@ -36,20 +37,12 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
     end
     se = sqrt.(diag(V))
     t = thetahat ./ se
-    p = 2.0 .- 2.0*cdf.(TDist(n-k),abs.(t))
-    if converged == true convergence="Normal"
-    else convergence="No convergence"
-    end
+    p = 2.0 .- 2.0*cdf.(Ref(TDist(n-k)),abs.(t))
     PrintDivider()
-    if title !="" println(title) end
-    print("GMM Estimation Results    BFGS convergence: ")
-    if convergence=="Normal"
-        print_with_color(:green, convergence)
-        println()
-    else
-        print_with_color(:red, convergence)
-        println()
-    end
+    if title !="" printstyled(title, color=:yellow); println() end
+    print("GMM Estimation Results    NLopt convergence: ")
+    printstyled(converged, color=:green)
+    println()
     println("Observations: ", n)
     println("Hansen-Sargan statistic: ", round(n*objvalue, digits=5))
     if g > k

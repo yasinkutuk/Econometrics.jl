@@ -21,6 +21,7 @@ function ols()
     R = [1 0 0 0]
     r = 1
     ols(y,x,R=R,r=r)
+    return
 end
 
 function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
@@ -89,5 +90,4 @@ function ols(y, x; R=[], r=[], names="", vc="white", silent=false)
         PrintDivider()
     end
     return b, varb, e, ess, rsq
-    ""
 end

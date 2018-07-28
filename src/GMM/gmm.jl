@@ -6,7 +6,7 @@ using Calculus
 # weight should be gXg positive definite
 function gmm(moments, theta, weight)
     # average moments
-    m = theta -> vec(mean(moments(theta),1)) # 1Xg
+    m = theta -> vec(mean(moments(theta),dims=1)) # 1Xg
     # moment contributions
     momentcontrib = theta -> moments(theta) # nXg
     # GMM criterion
@@ -23,7 +23,7 @@ end
 # CUE GMM, weight computed by NW
 function gmm(moments, theta)
     # average moments
-    m = theta -> vec(mean(moments(theta),1)) # 1Xg
+    m = theta -> vec(mean(moments(theta),dims=1)) # 1Xg
     # moment contributions
     momentcontrib = theta -> moments(theta) # nXg
     # weight
@@ -48,7 +48,7 @@ function gmm()
     # example of GMM: draws from N(0,1)
     y = randn(100,1)
     # 3 moment conditions
-    moments = theta -> [y-theta[1] (y.^2.0).-theta[2] (y.-theta[1]).^3.0]
+    moments = theta -> [y.-theta[1] (y.^2.0).-theta[2] (y.-theta[1]).^3.0]
     # first round consistent
     W = eye(3)
     theta = [0.0, 1.0]
