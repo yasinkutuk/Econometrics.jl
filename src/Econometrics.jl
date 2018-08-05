@@ -1,5 +1,3 @@
-__precompile__()
-
 module Econometrics
 using LinearAlgebra, StatsBase, Statistics, Distributions, Plots, NLopt, SpecialFunctions
 

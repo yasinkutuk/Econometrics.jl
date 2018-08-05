@@ -60,5 +60,3 @@ function TrainNet(data, trainsize, noutputs, layerconfig, batchsize, epochs, sav
     batchsize = 10*batchsize
     mx.fit(model, optimizer, eval_metric=mx.MSE(), trainprovider, eval_data=evalprovider, n_epoch = epochs, callbacks=[mx.do_checkpoint(savefile, frequency=epochs, save_epoch_0=false)])
 end    
-
-
