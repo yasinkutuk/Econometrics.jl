@@ -5,6 +5,7 @@ using LinearAlgebra, StatsBase, Statistics, Distributions, Plots, NLopt, Special
 include("Utilities/stnorm.jl")
 include("Utilities/trim.jl")
 include("Utilities/prettyprint.jl")
+include("Utilities/eye.jl")
 include("Utilities/sortbyc.jl")
 include("Utilities/dstats.jl")
 include("Utilities/lag.jl")
@@ -52,7 +53,7 @@ include("ML/Likelihoods/normal.jl")
 include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
 
-export stnorm, trim, prettyprint, sortbyc, dstats, lag, lags, vech
+export stnorm, trim, prettyprint, eye, sortbyc, dstats, lag, lags, vech
 #export clc # problematic on Windows, for some reason!
 export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest

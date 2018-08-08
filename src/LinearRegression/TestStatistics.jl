@@ -31,9 +31,9 @@ function TestStatistics(y, x, R, r)
 	P_inv = inv(R*xx_inv*R')
 	b_r = b .- xx_inv*R'*P_inv*(R*b.-r)
     e = y - x*b
-    ess = (e'*e)[1,1]
+    ess = (e'*e)[1]
     e_r = y - x*b_r
-    ess_r = (e_r' * e_r)[1,1]
+    ess_r = (e_r' * e_r)[1]
     sigsqhat_ols = ess/(n-k)
     sigsqhat_mle = ess/(n)
     sigsqhat_mle_r = ess_r/(n)
@@ -45,8 +45,8 @@ function TestStatistics(y, x, R, r)
     P_x = x * xx_inv * x'
     S = e_r' * P_x * e_r/(sigsqhat_mle_r)
     # LR test
-    lnl = -n/2*log(2*pi) - n/2*log(sigsqhat_mle) - e' * e/(2*sigsqhat_mle)
-    lnl_r = -n/2*log(2*pi) - n/2*log(sigsqhat_mle_r) - e_r' * e_r/(2*sigsqhat_mle_r)
+    lnl = -n/2*log(2*pi) - n/2*log(sigsqhat_mle) - ess/(2.0*sigsqhat_mle)
+    lnl_r = -n/2*log(2*pi) - n/2*log(sigsqhat_mle_r) - ess_r/(2.0*sigsqhat_mle_r)
     LR = 2.0*(lnl-lnl_r)
 	tests = [q*F[1], W[1], LR[1], S[1]]
 	pvalues = chisqccdf.(tests,q)
