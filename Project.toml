@@ -1,3 +1,6 @@
+name = "Econometrics"
+uuid = "0a941ecb-1b00-5fff-8971-f6b4b969639d"
+
 [deps]
 Calculus = "49dc2e85-a5d0-5ad3-a950-438e2897f1b9"
 Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"

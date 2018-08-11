@@ -190,9 +190,9 @@ version = "0.3.0"
 
 [[PlotUtils]]
 deps = ["Colors", "Dates", "Printf", "Reexport", "Test"]
-git-tree-sha1 = "99c6f7f9111d49209cd5859f8fc407bc030defad"
+git-tree-sha1 = "02e6c64afea08496f43ac7bf8d2c0454b4d378c2"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "0.5.0"
+version = "0.5.1"
 
 [[Plots]]
 deps = ["Base64", "Contour", "Dates", "FixedPointNumbers", "GR", "JSON", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Printf", "REPL", "RecipesBase", "Reexport", "Requires", "Showoff", "StaticArrays", "Statistics", "StatsBase", "Test"]
@@ -259,10 +259,10 @@ deps = ["Distributed", "Mmap", "Random", "Serialization"]
 uuid = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
 
 [[Showoff]]
-deps = ["Compat"]
-git-tree-sha1 = "9cb3f3bc5819a5142706cd185d76801c7d292809"
+deps = ["Compat", "Pkg"]
+git-tree-sha1 = "276b24f3ace98bec911be7ff2928d497dc759085"
 uuid = "992d4aef-0814-514b-bc4d-f2e9a6c4116f"
-version = "0.2.0"
+version = "0.2.1"
 
 [[Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
