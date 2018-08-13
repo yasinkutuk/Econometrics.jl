@@ -90,7 +90,7 @@ function samin()
         objvalue = junk + sum(x.*x)
     end
     k = 5
-    srand(1)
+    Random.seed!(1)
     x = rand(k,1)
     lb = -ones(k,1)
     ub = -lb

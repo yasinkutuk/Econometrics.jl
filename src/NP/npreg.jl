@@ -22,7 +22,7 @@ function npreg()
     #using Plots
     order = 2 # 0 for local constant, 1 for local linear, 2 for local quadratic
     k = 3 # number of regressors
-    srand(1) # set seed to enable testing
+    Random.seed(1) # set seed to enable testing
     bandwidth = 0.07
     n = 100000
     neval = 100

@@ -11,7 +11,7 @@ execute ndens() for an example
 function npdens()
     println("npdens(), with no arguments, runs a simple example")
     println("execute edit(ndens,()) to see the code")
-    srand(1) # set seed to enable testing
+    Random.seed!(1) # set seed to enable testing
     bandwidth = 1.0
     x = rand(Chisq(5),1000)
     xeval, d = npdens(x)
