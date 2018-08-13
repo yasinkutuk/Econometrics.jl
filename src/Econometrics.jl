@@ -1,6 +1,7 @@
 module Econometrics
-using Plots, LinearAlgebra, StatsBase, Statistics, Distributions, NLopt, SpecialFunctions
-using Printf
+using LinearAlgebra, StatsBase, Statistics, Distributions, NLopt, SpecialFunctions
+using Plots, GR
+using Printf, StatsFuns, Calculus
 
 # Utilities
 include("Utilities/stnorm.jl")

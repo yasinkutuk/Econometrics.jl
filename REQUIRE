@@ -1,6 +1,10 @@
-julia 0.7
-Distributions
+julia 1.0
 Plots
 GR
+Distributions
 Distances
 NLopt
+StatsBase
+StatsFuns
+SpecialFunctions
+Calculus
