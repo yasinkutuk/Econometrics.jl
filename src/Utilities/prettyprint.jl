@@ -27,5 +27,5 @@ function prettyprint(a::Array{Float64}, cnames="", rnames="",digits=12, decimals
         end
         @printf("\n")
     end
-    return 0
+    return
 end  

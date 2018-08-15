@@ -1,5 +1,5 @@
 # plots kernel density summary of data, with 90% acceptance region, mean and median.
-using KernelDensity, Plots, FFTW
+using KernelDensity, Plots
 
 function npdensity(z)
     #pyplot()

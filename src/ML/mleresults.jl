@@ -34,7 +34,7 @@ function mleresults(model, θ, title="", names=""; vc=1)
     p = 2.0 .- 2.0*cdf.(Ref(TDist(n-k)),abs.(t))
     PrintDivider()
     if title !="" printstyled(title, color=:yellow); println() end
-    print("MLE Estimation Results    NLopt convergence: ")
+    print("MLE Estimation Results    Convergence: ")
     printstyled(converged, color=:green)
     println()
     println("Average Log-L: ", round(objvalue; digits=5), "   Observations: ", n)

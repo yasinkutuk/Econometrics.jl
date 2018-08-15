@@ -8,3 +8,5 @@ StatsBase
 StatsFuns
 SpecialFunctions
 Calculus
+KernelDensity
+Optim

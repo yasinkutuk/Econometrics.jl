@@ -1,7 +1,7 @@
 module Econometrics
 using LinearAlgebra, StatsBase, Statistics, Distributions, NLopt, SpecialFunctions
-using Plots, GR
-using Printf, StatsFuns, Calculus
+using Plots, GR, KernelDensity
+using Printf, StatsFuns, Calculus, Optim
 
 # Utilities
 include("Utilities/stnorm.jl")
@@ -30,7 +30,7 @@ include("Bayesian/mcmc.jl")
 include("NP/npreg.jl")
 include("NP/npdens.jl")
 include("NP/bootstrap.jl")
-#include("NP/npdensity.jl")
+include("NP/npdensity.jl")
 include("NP/kernelweights.jl")
 include("NP/NeweyWest.jl")
 
@@ -61,7 +61,7 @@ export PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
 export npreg, npdens, kernelweights, bootstrap
-#export npdensity
+export npdensity
 #export TrainNet, AnalyzeNet
 export samin, fminunc, fmincon
 export mle, mleresults

@@ -40,7 +40,7 @@ function gmmresults(moments, theta, weight, title="", names="", efficient=true)
     p = 2.0 .- 2.0*cdf.(Ref(TDist(n-k)),abs.(t))
     PrintDivider()
     if title !="" printstyled(title, color=:yellow); println() end
-    print("GMM Estimation Results    NLopt convergence: ")
+    print("GMM Estimation Results    Convergence: ")
     printstyled(converged, color=:green)
     println()
     println("Observations: ", n)

@@ -7,15 +7,15 @@ fminunc() with no arguments will run an example, execute edit(fminunc,()) to see
 fminunc() uses NLopt.jl  to do the actual minimization.
 
 """
-function fminunc(obj, x; tol = 1e-10)
-    #results = Optim.optimize(obj, x, LBFGS(), 
-    #                        Optim.Options(
-    #                        g_tol = 1e-5,
-    #                        x_tol=1e-5,
-    #                        f_tol=1e-9))
-    #return results.minimizer, results.minimum, Optim.converged(results)
-    xopt, objvalue, flag = fmincon(obj, x, tol=tol)
-    return xopt, objvalue, flag
+function fminunc(obj, x; tol = 1e-08)
+    results = Optim.optimize(obj, x, LBFGS(), 
+                            Optim.Options(
+                            g_tol = tol,
+                            x_tol=tol,
+                            f_tol=tol))
+    return results.minimizer, results.minimum, Optim.converged(results)
+    #xopt, objvalue, flag = fmincon(obj, x, tol=tol)
+    #return xopt, objvalue, flag
 end
 
 function fminunc()
