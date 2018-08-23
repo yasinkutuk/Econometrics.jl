@@ -7,7 +7,8 @@ This is used in the graduate econometrics lecture notes at https://github.com/mc
 
 To install this, execute add https://github.com/mcreel/Econometrics.jl.git from the Julia pkg prompt, then access the functions by "using Econometrics".
 
-The main functions will run a simple explanatory example if called with no arguments, e.g.,
+Start here: The main functions will run a simple explanatory example if called with no arguments, e.g.,
+
 ols()
 
 fminunc()
