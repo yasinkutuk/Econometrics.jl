@@ -2,7 +2,7 @@ using Test, Random
 function main()
     # OLS
     x = [ones(10,1) (1:10)]
-    srand(1)
+    Random.seed!(1)
     y = rand(10,1)
     b = ols(y,x,silent=true)[1]
     @testset "ols" begin
