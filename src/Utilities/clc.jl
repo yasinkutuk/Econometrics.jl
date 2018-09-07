@@ -1,4 +1,6 @@
 function clc()
-    Base.run(`clear`)
+    if Sys.islinux()
+        Base.run(`clear`)
+    end    
 end
-clc()
+clc();

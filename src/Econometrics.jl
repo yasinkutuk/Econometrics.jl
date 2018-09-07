@@ -15,7 +15,7 @@ include("Utilities/lags.jl")
 include("Utilities/vech.jl")
 include("Utilities/PrintDivider.jl")
 include("Utilities/PrintEstimationResults.jl")
-#include("Utilities/clc.jl") # problematic on Windows, for some reason
+include("Utilities/clc.jl")
 
 # linear regression
 include("LinearRegression/lsfit.jl")
@@ -56,8 +56,7 @@ include("GMM/gmm.jl")
 include("GMM/gmmresults.jl")
 
 export stnorm, trim, prettyprint, eye, sortbyc, dstats, lag, lags, vech
-#export clc # problematic on Windows, for some reason!
-export PrintDivider, PrintEstimationResults
+export clc, PrintDivider, PrintEstimationResults
 export lsfit, ols, tsls, TestStatistics, NeweyWest
 export mcmc
 export npreg, npdens, kernelweights, bootstrap
